@@ -8,3 +8,4 @@ WORKDIR /code
 COPY . /code/
 RUN pip install --upgrade pip && pip install poetry
 RUN poetry install
+RUN chmod 755 /code/entrypoint.sh
