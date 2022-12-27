@@ -3,7 +3,7 @@ from rest_framework.permissions import AllowAny
 from django.http import JsonResponse
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 @permission_classes([AllowAny])
 def health_check(request):
-    return JsonResponse(data={"msg":"pass"},status=200)
+    return JsonResponse(data={"msg": "pass"}, status=200)

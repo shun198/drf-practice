@@ -4,7 +4,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from application.models import User
-from application.permissions import IsGeneralUser, IsManagementUser, IsPartTimeUser, IsSuperUser
+from application.permissions import (
+    IsGeneralUser,
+    IsManagementUser,
+    IsPartTimeUser,
+    IsSuperUser,
+)
 from application.serializers import UserSerilaizer, EmailSerializer
 from application.emails import send_welcome_email
 
@@ -51,4 +56,3 @@ class UserViewSet(ModelViewSet):
         else:
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
-

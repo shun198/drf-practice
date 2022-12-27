@@ -1,10 +1,10 @@
-import logging
+from logging import getLogger
 
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, JsonResponse
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.viewsets import ViewSet
 
@@ -20,7 +20,7 @@ class UserViewSet(ModelViewSet):
 class LoginViewSet(ViewSet):
     serializer_class = LoginSerializer
     permission_classes = [AllowAny]
-    logger = logging.getLogger(__name__)
+    logger = getLogger(__name__)
 
     @action(detail=False, methods=["POST"])
     def login(self, request):
