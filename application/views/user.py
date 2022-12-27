@@ -1,15 +1,12 @@
-from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, JsonResponse
-from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.viewsets import ViewSet
 
-from .models import User
-from .permissions import IsGeneralUser, IsManagementUser, IsPartTimeUser, IsSuperUser
-from .serializers import LoginSerializer, UserSerilaizer, EmailSerializer
-from .emails import send_welcome_email
+from application.models import User
+from application.permissions import IsGeneralUser, IsManagementUser, IsPartTimeUser, IsSuperUser
+from application.serializers import UserSerilaizer, EmailSerializer
+from application.emails import send_welcome_email
 
 
 class UserViewSet(ModelViewSet):
@@ -55,30 +52,3 @@ class UserViewSet(ModelViewSet):
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
-
-class LoginViewSet(ViewSet):
-    serializer_class = LoginSerializer
-    permission_classes = [AllowAny]
-
-    @action(detail=False, methods=["POST"])
-    def login(self, request):
-        serializer = LoginSerializer(data=request.data)
-        if not serializer.is_valid():
-            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        employee_number = serializer.validated_data.get("employee_number")
-        password = serializer.validated_data.get("password")
-        user = authenticate(employee_number=employee_number, password=password)
-        if not user:
-            return JsonResponse(
-                data={"msg": "either employee number or password is incorrect"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        else:
-            login(request, user)
-            return JsonResponse(data={"role": user.Role(user.role).name})
-
-    @action(methods=["POST"], detail=False, permission_classes=[])
-    def logout(self, request):
-        logout(request)
-        return HttpResponse()

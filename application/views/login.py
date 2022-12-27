@@ -1,0 +1,47 @@
+import logging
+
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse, JsonResponse
+from rest_framework import status
+from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ViewSet
+
+from application.models import User
+from application.serializers import LoginSerializer, UserSerilaizer
+
+
+class UserViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerilaizer
+
+
+class LoginViewSet(ViewSet):
+    serializer_class = LoginSerializer
+    permission_classes = [AllowAny]
+    logger = logging.getLogger(__name__)
+
+    @action(detail=False, methods=["POST"])
+    def login(self, request):
+        serializer = LoginSerializer(data=request.data)
+        if not serializer.is_valid():
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        employee_number = serializer.validated_data.get("employee_number")
+        password = serializer.validated_data.get("password")
+        user = authenticate(employee_number=employee_number, password=password)
+        if not user:
+            self.logger.warning(f"ログインに失敗しました: {employee_number}")
+            return JsonResponse(
+                data={"msg": "either employee number or password is incorrect"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        else:
+            login(request, user)
+            return JsonResponse(data={"role": user.Role(user.role).name})
+
+    @action(methods=["POST"], detail=False)
+    def logout(self, request):
+        logout(request)
+        return HttpResponse()
