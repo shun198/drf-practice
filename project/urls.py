@@ -26,10 +26,11 @@ urlpatterns = [
 
 if settings.DEBUG:
     from drf_spectacular.views import (
-    SpectacularAPIView,
-    SpectacularRedocView,
-    SpectacularSwaggerView,
-)
+        SpectacularAPIView,
+        SpectacularRedocView,
+        SpectacularSwaggerView,
+    )
+
     urlpatterns += [
         path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
         # SwaggerUIの設定
@@ -45,4 +46,3 @@ if settings.DEBUG:
             name="redoc",
         ),
     ]
-

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "rest_framework",
     # SwaggerUIが使えるよう記載
     "drf_spectacular",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "project.urls"
@@ -135,18 +137,29 @@ STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'application.User'
+AUTH_USER_MODEL = "application.User"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'プロジェクト名',
-    'DESCRIPTION': '詳細',
-    'VERSION': '1.0.0',
+    "TITLE": "プロジェクト名",
+    "DESCRIPTION": "詳細",
+    "VERSION": "1.0.0",
     # オプション
-    # 'SERVE_INCLUDE_SCHEMA': False,
+    "SERVE_INCLUDE_SCHEMA": False,
 }
+
+if DEBUG:
+    # Djangoのメールの設定
+    EMAIL_HOST = "mail"
+    EMAIL_HOST_USER = ""
+    EMAIL_HOST_PASSWORD = ""
+    # SMTPの1025番ポートを指定
+    EMAIL_PORT = 1025
+    # 送信中の文章の暗号化をFalseにします
+    EMAIL_USE_TLS = False

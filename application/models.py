@@ -21,7 +21,7 @@ class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     employee_number = models.CharField(
         unique=True,
-        validators=[RegexValidator(r'^[0-9]{8}$')],
+        validators=[RegexValidator(r"^[0-9]{8}$")],
         max_length=8,
         # 管理者のログイン画面で社員番号と表示される
         verbose_name="社員番号",
@@ -39,7 +39,7 @@ class User(AbstractUser):
     # デフォルトはusernameだが今回は社員番号を指定
     USERNAME_FIELD = "employee_number"
     # uniqueのemailとusernameを指定
-    REQUIRED_FIELDS = ["email","username"]
+    REQUIRED_FIELDS = ["email", "username"]
 
     class Meta:
         ordering = ["employee_number"]
