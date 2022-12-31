@@ -1,0 +1,6 @@
+name: Auto Label Pull Requests
+on: [pull_request]
+jobs:
+  label:
+    name: Review Source Code
+    runs-on: ubuntu-20.04
