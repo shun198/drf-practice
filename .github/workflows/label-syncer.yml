@@ -4,7 +4,7 @@ name: Sync labels
 #   schedule:
 #     - cron: "0 9 * * 1"
 on:
-  [push]
+  [pull_request]
 jobs:
   build:
     name: Sync labels

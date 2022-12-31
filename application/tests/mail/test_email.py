@@ -18,7 +18,7 @@ class TestInviteUser:
             management_user (fixture): ログイン用の管理者ユーザ
             email_data (fixture): send_invite_user_mail/へPOSTリクエストを送るためのデータ
         """
-        self.client.login(username=management_user[0], password=management_user[1])
+        self.client.login(employee_number=management_user[0], password=management_user[1])
         response = self.client.post(self.url, email_data, format="json")
         assert response.status_code == 200
         # メールを一通受信したことを確認
