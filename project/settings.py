@@ -163,3 +163,9 @@ if DEBUG:
     EMAIL_PORT = 1025
     # 送信中の文章の暗号化をFalseにします
     EMAIL_USE_TLS = False
+else:
+    # メールの設定
+    EMAIL_BACKEND = 'django_ses.SESBackend'
+    AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME")
+    AWS_SES_REGION_ENDPOINT = os.environ.get("AWS_SES_REGION_ENDPOINT")
+    DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
