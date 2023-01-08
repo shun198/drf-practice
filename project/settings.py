@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # SwaggerUIが使えるよう記載
     "drf_spectacular",
     "debug_toolbar",
+    "django_ses",
 ]
 
 MIDDLEWARE = [
@@ -164,6 +165,9 @@ if DEBUG:
     # 送信中の文章の暗号化をFalseにします
     EMAIL_USE_TLS = False
 else:
+    # AWSの設定
+    AWS_ACCESS_KEY_ID=os.environ.get("AWS_SES_REGION_NAME")
+    AWS_SECRET_ACCESS_KEY=os.environ.get("AWS_SECRET_ACCESS_KEY")
     # メールの設定
     EMAIL_BACKEND = 'django_ses.SESBackend'
     AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME")
