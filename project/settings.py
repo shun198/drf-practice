@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "debug_toolbar",
     "django_ses",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -173,3 +174,9 @@ else:
     AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME")
     AWS_SES_REGION_ENDPOINT = os.environ.get("AWS_SES_REGION_ENDPOINT")
     DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+    AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+
+MEDIA_URL = '/upload/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
