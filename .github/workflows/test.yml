@@ -20,9 +20,9 @@ jobs:
           DEBUG: ${{ secrets.DEBUG }}
       # - name: Display tty
       #   run: tty
-      - name: Test
+      - name: Generate Docker Container
         # 入力チャネルを開く
         # tty:標準入出力となっている端末デバイスの名前を表示するUnix系コマンド
-        run: |
-          docker-compose up -d --build
-          docker-compose exec -T app poetry run pytest --cov=application/tests/
+        run: docker-compose up -d --build
+      - name: Execute Test
+        run: docker-compose exec -T app poetry run pytest --cov=application/tests/
