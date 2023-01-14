@@ -1,6 +1,7 @@
 import pytest
 from django.core import mail
 from rest_framework.test import APIClient
+from application.tests.common_method import login
 
 
 @pytest.mark.django_db()
@@ -10,15 +11,15 @@ class TestInviteUser:
     url = "/api/users/send_invite_user_mail/"
 
     def test_management_user_can_send_invite_user_email(
-        self, management_user, email_data
+        self, login_management, email_data
     ):
         """招待メールを送信できたかテスト
 
         Args:
-            management_user (fixture): ログイン用の管理者ユーザ
+            login_management (fixture): ログイン用の管理者ユーザ
             email_data (fixture): send_invite_user_mail/へPOSTリクエストを送るためのデータ
         """
-        self.client.login(employee_number=management_user[0], password=management_user[1])
+        login(self.client, login_management)
         response = self.client.post(self.url, email_data, format="json")
         assert response.status_code == 200
         # メールを一通受信したことを確認
