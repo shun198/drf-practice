@@ -163,3 +163,4 @@ migrations/
 # ignore static files
 static/
 settings.json
+docs/
