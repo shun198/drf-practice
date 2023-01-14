@@ -35,6 +35,8 @@ services:
       # デバッグ用ポート
       - "8080:8080"
     command: sh -c "/code/entrypoint.sh"
+    tty: true
+    stdin_open: true
     env_file:
       - .env
     depends_on:
