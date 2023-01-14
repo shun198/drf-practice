@@ -19,9 +19,12 @@ jobs:
           DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
           DEBUG: ${{ secrets.DEBUG }}
           DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
+      - name: Display tty
+        run: tty
       - name: Test
         # 入力チャネルを開く
+        # tty:標準入出力となっている端末デバイスの名前を表示するUnix系コマンド
         run: |
           docker-compose up -d --build
-          docker-compose exec app poetry run pytest --cov --cov-branch --cov-report=term-missing --suppress-no-test-exit-code
+          docker-compose exec -T app poetry run pytest --cov --cov-branch --cov-report=term-missing --suppress-no-test-exit-code
 

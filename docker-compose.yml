@@ -35,7 +35,9 @@ services:
       # デバッグ用ポート
       - "8080:8080"
     command: sh -c "/code/entrypoint.sh"
+    # 表示をきれいにする
     tty: true
+    # 入力チャネルを開く
     stdin_open: true
     env_file:
       - .env
