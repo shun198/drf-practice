@@ -1,7 +1,8 @@
 import pytest
 from django.core import mail
 from rest_framework.test import APIClient
-from application.tests.common_method import login
+from rest_framework import status
+from application.tests.common_method import login, mail_confirm
 
 
 @pytest.mark.django_db()
@@ -13,7 +14,7 @@ class TestInviteUser:
     def test_management_user_can_send_invite_user_email(
         self, login_management, email_data
     ):
-        """招待メールを送信できたかテスト
+        """管理者ユーザで正常に招待メールを送信できることをテスト
 
         Args:
             login_management (fixture): ログイン用の管理者ユーザ
@@ -21,14 +22,31 @@ class TestInviteUser:
         """
         login(self.client, login_management)
         response = self.client.post(self.url, email_data, format="json")
-        assert response.status_code == 200
-        # メールを一通受信したことを確認
-        assert len(mail.outbox) == 1
-        # メールの件名が正しいことを確認
-        assert mail.outbox[0].subject == "ようこそ"
-        # メールの送信元が正しいことを確認
-        assert mail.outbox[0].from_email == "example@mail.com"
-        # 宛先は複数存在するため、toは配列になります
-        # 今回はtest_user_01@test.comのみのため、to[0]と指定します
-        # メールの送信先が正しいことを確認
-        assert mail.outbox[0].to[0] == email_data["email"]
+        assert response.status_code == status.HTTP_200_OK
+        mail_confirm(mail.outbox, email_data["email"], "ようこそ")
+
+    def test_general_user_cannot_send_invite_user_email(
+        self, login_general, email_data
+    ):
+        """一般ユーザで正常に招待メールを送信できないことをテスト
+
+        Args:
+            login_general (fixture): ログイン用の一般ユーザ
+            email_data (fixture): send_invite_user_mail/へPOSTリクエストを送るためのデータ
+        """
+        login(self.client, login_general)
+        response = self.client.post(self.url, email_data, format="json")
+        assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    def test_management_user_can_send_invite_user_email(
+        self, login_part_time, email_data
+    ):
+        """アルバイトユーザで招待メールを送信できないことをテスト
+
+        Args:
+            login_sales (fixture): ログイン用のアルバイトユーザ
+            email_data (fixture): send_invite_user_mail/へPOSTリクエストを送るためのデータ
+        """
+        login(self.client, login_part_time)
+        response = self.client.post(self.url, email_data, format="json")
+        assert response.status_code == status.HTTP_403_FORBIDDEN
