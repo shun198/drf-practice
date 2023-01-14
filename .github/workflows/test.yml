@@ -25,5 +25,4 @@ jobs:
         # tty:標準入出力となっている端末デバイスの名前を表示するUnix系コマンド
         run: |
           docker-compose up -d --build
-          docker-compose exec -T app poetry run pytest --cov=application/tests/ --cov-branch --cov-report=term-missing
-
+          docker-compose exec -T app poetry run pytest --cov=application/tests/test_*.py --cov-branch --cov-report=html
