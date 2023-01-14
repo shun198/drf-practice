@@ -33,7 +33,6 @@ def login_part_time():
     }
 
 
-
 @pytest.fixture
 def email_data():
     return {
