@@ -1,4 +1,5 @@
 CONTAINER_NAME = app
+PROJECT = test-proj
 RUN_APP = docker-compose exec $(CONTAINER_NAME)
 RUN_POETRY =  $(RUN_APP) poetry run
 RUN_DJANGO = $(RUN_POETRY) python manage.py
@@ -37,9 +38,16 @@ test:
 test-cov:
 	$(RUN_PYTEST) --cov=application/tests/
 
-loadtest:
-	$(RUN_PYTEST) --alluredir=allure-results
+make_report:
+	-@ $(RUN_PYTEST) --alluredir=allure-results
 	sh send_results.sh
+	echo "Generating test report. This may take a while..."
+	curl -X GET "http://127.0.0.1:5050/allure-docker-service/generate-report?project_id=$(PROJECT)" -H  "accept: */*"
+	echo "Successfully generated test report. Redirecting to allure server."
+	open http://127.0.0.1:5050/allure-docker-service/projects/$(PROJECT)/reports/latest/index.html
+
+show_report:
+	open http://127.0.0.1:5050/allure-docker-service/projects/$(PROJECT)/reports/latest/index.html
 
 format:
 	$(RUN_POETRY) black .

@@ -165,3 +165,5 @@ static/
 settings.json
 docs/
 assets/
+allure-reports/
+allure-results/
