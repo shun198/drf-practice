@@ -18,11 +18,17 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
           DEBUG: ${{ secrets.DEBUG }}
-      # - name: Display tty
-      #   run: tty
+      - name: Create builder instance for running image build
+        uses: docker/setup-buildx-action@v1
+      - name: Use builder instance to build docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          # Use GitHub Cache API
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       - name: Generate Docker Container
-        # 入力チャネルを開く
-        # tty:標準入出力となっている端末デバイスの名前を表示するUnix系コマンド
+        # ttyを無効化
         run: docker-compose up -d --build
       - name: Execute Test
         run: docker-compose exec -T app poetry run pytest --cov=application/tests/
