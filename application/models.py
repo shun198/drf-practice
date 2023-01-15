@@ -1,8 +1,10 @@
 import uuid
-from django.db import models
-from django.core.validators import RegexValidator
+
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
+from django.core.validators import RegexValidator
+from django.db import models
+
 
 # カスタムユーザクラスを定義
 class User(AbstractUser):

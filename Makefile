@@ -41,8 +41,12 @@ loadtest:
 	$(RUN_PYTEST) --alluredir=allure-results
 	sh send_results.sh
 
-black:
+format:
 	$(RUN_POETRY) black .
+	$(RUN_POETRY) isort .
+
+update:
+	$(RUN_APP) poetry update
 
 db:
 	docker exec -it db bash
