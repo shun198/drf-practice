@@ -3,15 +3,11 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
-from application.models import User
-from application.permissions import (
-    IsGeneralUser,
-    IsManagementUser,
-    IsPartTimeUser,
-    IsSuperUser,
-)
-from application.serializers import UserSerilaizer, EmailSerializer
 from application.emails import send_welcome_email
+from application.models import User
+from application.permissions import (IsGeneralUser, IsManagementUser,
+                                     IsPartTimeUser, IsSuperUser)
+from application.serializers import EmailSerializer, UserSerilaizer
 
 
 class UserViewSet(ModelViewSet):

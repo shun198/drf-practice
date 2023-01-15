@@ -1,0 +1,19 @@
+name: Sync labels
+
+# ラベルの初回適用後または変更後、cronを使って定期実行に留める
+# on:
+#   schedule:
+#     - cron: "0 9 * * 1"
+
+on: pull_request
+jobs:
+  build:
+    name: Sync labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: micnncim/action-label-syncer@v0.3.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          manifest: .github/labels.yml

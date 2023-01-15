@@ -18,13 +18,11 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
           DEBUG: ${{ secrets.DEBUG }}
-          DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
-      - name: Test
-        run:
-          docker-compose run --rm app sh -c "poetry run pytest -v -s --duration=0"
-      - name: Pytest coverage comment
-        uses: MishaKav/pytest-coverage-comment@main
-        with:
-          pytest-coverage-path: ./pytest-coverage.txt
-          junitxml-path: ./pytest.xml
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Display tty
+      #   run: tty
+      - name: Generate Docker Container
+        # 入力チャネルを開く
+        # tty:標準入出力となっている端末デバイスの名前を表示するUnix系コマンド
+        run: docker-compose up -d --build
+      - name: Execute Test
+        run: docker-compose exec -T app poetry run pytest --cov=application/tests/

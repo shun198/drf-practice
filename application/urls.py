@@ -1,6 +1,7 @@
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework_nested import routers
-from application.views import user, login, health_check
+
+from application.views import health_check, login, user
 
 router = routers.DefaultRouter()
 router.register(r"users", user.UserViewSet, basename="user")

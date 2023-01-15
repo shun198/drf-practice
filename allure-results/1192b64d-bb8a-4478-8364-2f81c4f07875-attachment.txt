@@ -1,0 +1,2 @@
+[33mWARNING [0m application.views.login:login.py:35 ログインに失敗しました: 00000001
+[33mWARNING [0m django.request:log.py:241 Bad Request: /api/login/

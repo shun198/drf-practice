@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     # SwaggerUIが使えるよう記載
     "drf_spectacular",
     "debug_toolbar",
+    "django_extensions",
+    "django_ses",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -163,3 +166,18 @@ if DEBUG:
     EMAIL_PORT = 1025
     # 送信中の文章の暗号化をFalseにします
     EMAIL_USE_TLS = False
+else:
+    # AWSの設定
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_SES_REGION_NAME")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    # メールの設定
+    EMAIL_BACKEND = "django_ses.SESBackend"
+    AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME")
+    AWS_SES_REGION_ENDPOINT = os.environ.get("AWS_SES_REGION_ENDPOINT")
+    DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    STATICFILES_STORAGE = "storages.backends.s3boto3.S3StaticStorage"
+    AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+
+MEDIA_URL = "/upload/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "upload")

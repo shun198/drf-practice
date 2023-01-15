@@ -1,4 +1,8 @@
+"""
+権限用のモジュール
+"""
 from rest_framework.permissions import BasePermission
+
 from .models import User
 
 
@@ -8,6 +12,7 @@ class IsPartTimeUser(BasePermission):
 
         Args:
             request: リクエスト
+            view: ビュー
 
         Returns:
             アルバイトユーザならTrue
@@ -33,6 +38,7 @@ class IsGeneralUser(BasePermission):
 
         Args:
             request: リクエスト
+            view: ビュー
 
         Returns:
             一般ユーザならTrue
@@ -57,6 +63,7 @@ class IsManagementUser(BasePermission):
 
         Args:
             request: リクエスト
+            view: ビュー
 
         Returns:
             管理ユーザならTrue
@@ -77,6 +84,7 @@ class IsSuperUser(BasePermission):
 
         Args:
             request: リクエスト
+            view: ビュー
 
         Returns:
             スーパーユーザならTrue

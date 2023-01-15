@@ -14,35 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-
-from project import settings
-
+from django.urls import include, path
+from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
+                                   SpectacularSwaggerView)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("application.urls")),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    # SwaggerUIの設定
+    path(
+        "api/docs/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    # Redocの設定
+    path(
+        "api/redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
 ]
-
-if settings.DEBUG:
-    from drf_spectacular.views import (
-        SpectacularAPIView,
-        SpectacularRedocView,
-        SpectacularSwaggerView,
-    )
-
-    urlpatterns += [
-        path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
-        # SwaggerUIの設定
-        path(
-            "api/docs/",
-            SpectacularSwaggerView.as_view(url_name="schema"),
-            name="swagger-ui",
-        ),
-        # Redocの設定
-        path(
-            "api/redoc/",
-            SpectacularRedocView.as_view(url_name="schema"),
-            name="redoc",
-        ),
-    ]

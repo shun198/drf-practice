@@ -1,5 +1,4 @@
 import pytest
-
 from django.core.management import call_command
 
 
@@ -10,8 +9,27 @@ def django_db_setup(django_db_setup, django_db_blocker):
 
 
 @pytest.fixture
-def management_user(db):
-    return ("00000001", "test")
+def login_management():
+    return {
+        "employee_number": "00000001",
+        "password": "test",
+    }
+
+
+@pytest.fixture
+def login_general():
+    return {
+        "employee_number": "00000002",
+        "password": "test",
+    }
+
+
+@pytest.fixture
+def login_part_time():
+    return {
+        "employee_number": "00000003",
+        "password": "test",
+    }
 
 
 @pytest.fixture
