@@ -18,6 +18,7 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
           DEBUG: ${{ secrets.DEBUG }}
+      # https://tech.griphone.co.jp/2021/12/18/fast-docker-compose-buildx-github-actions/
       - name: Generate Docker Container
         # ttyを無効化
         run: docker-compose up -d --build
