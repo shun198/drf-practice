@@ -6,12 +6,5 @@ from django.http import JsonResponse
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def health_check(request):
-    """ヘルスチェックのテスト
-
-    Args:
-        request : リクエスト
-
-    Returns:
-        dict: {"msg": "pass"}のjsonレスポンスとステータスコード200
-    """
+    """ヘルスチェックのテスト"""
     return JsonResponse(data={"msg": "pass"}, status=200)

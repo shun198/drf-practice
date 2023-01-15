@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # SwaggerUIが使えるよう記載
     "drf_spectacular",
     "debug_toolbar",
+    "django_extensions",
     "django_ses",
     "storages",
 ]

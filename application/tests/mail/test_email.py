@@ -14,12 +14,7 @@ class TestInviteUser:
     def test_management_user_can_send_invite_user_email(
         self, login_management, email_data
     ):
-        """管理者ユーザで正常に招待メールを送信できることをテスト
-
-        Args:
-            login_management (fixture): ログイン用の管理者ユーザ
-            email_data (fixture): send_invite_user_mail/へPOSTリクエストを送るためのデータ
-        """
+        """管理者ユーザで正常に招待メールを送信できることをテスト"""
         login(self.client, login_management)
         response = self.client.post(self.url, email_data, format="json")
         assert response.status_code == status.HTTP_200_OK
@@ -28,25 +23,15 @@ class TestInviteUser:
     def test_general_user_cannot_send_invite_user_email(
         self, login_general, email_data
     ):
-        """一般ユーザで正常に招待メールを送信できないことをテスト
-
-        Args:
-            login_general (fixture): ログイン用の一般ユーザ
-            email_data (fixture): send_invite_user_mail/へPOSTリクエストを送るためのデータ
-        """
+        """一般ユーザで正常に招待メールを送信できないことをテスト"""
         login(self.client, login_general)
         response = self.client.post(self.url, email_data, format="json")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    def test_management_user_can_send_invite_user_email(
+    def test_part_time_user_cannot_send_invite_user_email(
         self, login_part_time, email_data
     ):
-        """アルバイトユーザで招待メールを送信できないことをテスト
-
-        Args:
-            login_sales (fixture): ログイン用のアルバイトユーザ
-            email_data (fixture): send_invite_user_mail/へPOSTリクエストを送るためのデータ
-        """
+        """アルバイトユーザで招待メールを送信できないことをテスト"""
         login(self.client, login_part_time)
         response = self.client.post(self.url, email_data, format="json")
         assert response.status_code == status.HTTP_403_FORBIDDEN

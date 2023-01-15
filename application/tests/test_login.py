@@ -67,12 +67,12 @@ class TestUserSerializer:
         url = "/api/logout/"
 
         def test_user_logout(self, login_management):
-            """正常にログアウトできることを確認"""
+            """正常にログアウトできることをテスト"""
             login(self.client, login_management)
             response = self.client.post(self.url, login_management, format="json")
             assert response.status_code == status.HTTP_200_OK
 
         def test_user_logout_without_login(self, login_management):
-            """ログインしていなくても200を返すことを確認"""
+            """ログインしていなくても200を返すことをテスト"""
             response = self.client.post(self.url, login_management, format="json")
             assert response.status_code == status.HTTP_200_OK

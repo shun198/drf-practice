@@ -1,1 +1,0 @@
-{"uuid": "fdb274df-e8c2-409f-97f9-6a5fcf08b193", "children": ["e8c44164-bc3a-4d91-9194-d6893cf3c7d3"], "befores": [{"name": "django_db_use_migrations", "status": "passed", "start": 1673689624916, "stop": 1673689624916}], "start": 1673689624916, "stop": 1673689626428}
