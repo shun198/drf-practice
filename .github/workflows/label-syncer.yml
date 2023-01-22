@@ -1,9 +1,9 @@
 name: Sync labels
 
-on:
-  create:
-    branches:
-      - develop
+# on:
+#   schedule:
+#     - cron: "0 9 * * 1"
+on: push
 
 jobs:
   build:
