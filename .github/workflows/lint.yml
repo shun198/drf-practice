@@ -23,6 +23,7 @@ jobs:
       # - name: Check files using black formatter
         uses: psf/black@stable
         with:
+          options: "--check --verbose"
           src: "application/"
       # - name: Annotate diff changes using reviewdog
       #   if: steps.action_black.outputs.is_formatted == 'true'
