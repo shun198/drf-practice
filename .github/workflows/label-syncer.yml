@@ -1,11 +1,10 @@
 name: Sync labels
 
-# ラベルの初回適用後または変更後、cronを使って定期実行に留める
-# on:
-#   schedule:
-#     - cron: "0 9 * * 1"
+on:
+  create:
+    branches:
+      - develop
 
-on: pull_request
 jobs:
   build:
     name: Sync labels
