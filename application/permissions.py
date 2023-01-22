@@ -39,7 +39,6 @@ class IsGeneralUser(BasePermission):
         Args:
             request: リクエスト
             view: ビュー
-
         Returns:
             一般ユーザならTrue
             それ以外はFalse

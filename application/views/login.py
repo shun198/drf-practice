@@ -8,12 +8,12 @@ from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet, ViewSet
 
 from application.models import User
-from application.serializers import LoginSerializer, UserSerilaizer
+from application.serializers import LoginSerializer, UserSerializer
 
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerilaizer
+    serializer_class = UserSerializer
 
 
 class LoginViewSet(ViewSet):
@@ -25,7 +25,9 @@ class LoginViewSet(ViewSet):
     def login(self, request):
         serializer = LoginSerializer(data=request.data)
         if not serializer.is_valid():
-            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST
+            )
 
         employee_number = serializer.validated_data.get("employee_number")
         password = serializer.validated_data.get("password")
@@ -33,7 +35,9 @@ class LoginViewSet(ViewSet):
         if not user:
             self.logger.warning(f"ログインに失敗しました: {employee_number}")
             return JsonResponse(
-                data={"msg": "either employee number or password is incorrect"},
+                data={
+                    "msg": "either employee number or password is incorrect"
+                },
                 status=status.HTTP_400_BAD_REQUEST,
             )
         else:

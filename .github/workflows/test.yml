@@ -18,11 +18,30 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
           DEBUG: ${{ secrets.DEBUG }}
-      # - name: Display tty
-      #   run: tty
+      # https://tech.griphone.co.jp/2021/12/18/fast-docker-compose-buildx-github-actions/
+      # ポイント 1 Buildxの利用準備を行う
+      # BuildKitが提供している効率的なビルドやキャッシュのインポート・エクスポートの機能をDockerコマンドから利用できるようになる
+      # イメージのBuildに使用する
+      # - name: Set up Docker Buildx
+      #   id: buildx
+      #   uses: docker/setup-buildx-action@v1
+      # ポイント 2 キャッシュを利用する
+      # この場所に保存されたものがワークフローの終了時に自動的に保存され、次回以降の実行時に復元される
+      # - name: Cache Docker layers
+      #   uses: actions/cache@v2
+      #   with:
+      #     # キャッシュの保存場所
+      #     path: /tmp/.buildx-cache
+      #     # このアクションのキャッシュのキーを指定します。キャッシュとキーは一対一で対応しており、このキーが一致した場合に対応したキャッシュが復元されます
+      #     key: ${{ github.ref }}-${{ github.sha }}
+      #     # 前述のKeyが一致しなかった場合に復元対象とするキーのパターンを指定
+      #     restore-keys: |
+      #       ${{ github.ref }}
+      #       refs/head/main
+      # - name: inspect cache
+      #   run: ls -la
       - name: Generate Docker Container
-        # 入力チャネルを開く
-        # tty:標準入出力となっている端末デバイスの名前を表示するUnix系コマンド
+        # ttyを無効化
         run: docker-compose up -d --build
       - name: Execute Test
         run: docker-compose exec -T app poetry run pytest --cov=application/tests/

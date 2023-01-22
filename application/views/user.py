@@ -5,9 +5,13 @@ from rest_framework.viewsets import ModelViewSet
 
 from application.emails import send_welcome_email
 from application.models import User
-from application.permissions import (IsGeneralUser, IsManagementUser,
-                                     IsPartTimeUser, IsSuperUser)
-from application.serializers import EmailSerializer, UserSerilaizer
+from application.permissions import (
+    IsGeneralUser,
+    IsManagementUser,
+    IsPartTimeUser,
+    IsSuperUser,
+)
+from application.serializers import EmailSerializer, UserSerializer
 
 
 class UserViewSet(ModelViewSet):
@@ -17,7 +21,7 @@ class UserViewSet(ModelViewSet):
         if self.action == "send_invite_user_mail":
             return EmailSerializer
         else:
-            return UserSerilaizer
+            return UserSerializer
 
     @action(detail=False, methods=["POST"])
     def send_invite_user_mail(self, request):
@@ -41,7 +45,11 @@ class UserViewSet(ModelViewSet):
 
     # get_permissionsメソッドを使えば前述の表に従って権限を付与できる
     def get_permissions(self):
-        if self.action in ["update", "partial_update", "send_invite_user_mail"]:
+        if self.action in [
+            "update",
+            "partial_update",
+            "send_invite_user_mail",
+        ]:
             permission_classes = [IsManagementUser]
         elif self.action == "create":
             permission_classes = [IsGeneralUser]
