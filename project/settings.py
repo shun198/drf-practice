@@ -89,7 +89,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         # コンテナ内の環境変数をDATABASESのパラメータに反映
         "NAME": os.environ.get("MYSQL_DATABASE"),
-        "USER": os.environ.get("MYSQL_USER"),
+        "USER": "runner",
         "PASSWORD": os.environ.get("MYSQL_PASSWORD"),
         "HOST": "db",
         "PORT": 3306,
