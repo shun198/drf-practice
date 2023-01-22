@@ -11,7 +11,7 @@ from application.permissions import (
     IsPartTimeUser,
     IsSuperUser,
 )
-from application.serializers import EmailSerializer, UserSerilaizer
+from application.serializers import EmailSerializer, UserSerializer
 
 
 class UserViewSet(ModelViewSet):
@@ -21,7 +21,7 @@ class UserViewSet(ModelViewSet):
         if self.action == "send_invite_user_mail":
             return EmailSerializer
         else:
-            return UserSerilaizer
+            return UserSerializer
 
     @action(detail=False, methods=["POST"])
     def send_invite_user_mail(self, request):

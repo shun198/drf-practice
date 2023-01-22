@@ -8,12 +8,12 @@ from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet, ViewSet
 
 from application.models import User
-from application.serializers import LoginSerializer, UserSerilaizer
+from application.serializers import LoginSerializer, UserSerializer
 
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerilaizer
+    serializer_class = UserSerializer
 
 
 class LoginViewSet(ViewSet):
