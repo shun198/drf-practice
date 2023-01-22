@@ -1,8 +1,8 @@
 name: Tests
 on:
   pull_request:
-    branches-ignore:
-      - "release/**"
+    branches:
+      - "!release/**"
 jobs:
   test:
     name: Run Test Code
