@@ -32,11 +32,11 @@ jobs:
           cache: 'poetry'
       - run: poetry install
       - name: Show databases for root user
-        run: mysql --protocol=tcp -h localhost -P 3306 -u root -proot -e "SHOW DATABASES"
-      - name: Show databases for django user
-        run: mysql --protocol=tcp -h localhost -P 3306 -u django -pdjango -e "SHOW DATABASES"
-      - name: Show databases for runner user
-        run: mysql --protocol=tcp -h localhost -P 3306 -u runner -p -e "SHOW DATABASES"
+        run: mysql --protocol=tcp -h localhost -P 3306 -u root -proot -e "select user,host FROM mysql.user"
+      - name: Give privileges to runner
+        run: |
+          GRANT ALL PRIVILEGES ON *.* TO 'runner'@'%';
+          FLUSH PRIVILEGES;
       - name: Run migration
         run: |
           poetry run python manage.py makemigrations
