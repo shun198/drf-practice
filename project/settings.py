@@ -89,7 +89,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         # コンテナ内の環境変数をDATABASESのパラメータに反映
         "NAME": os.environ.get("MYSQL_DATABASE"),
-        "USER": "runner",
+        "USER": os.environ.get("MYSQL_USER"),
         "PASSWORD": os.environ.get("MYSQL_PASSWORD"),
         "HOST": "db",
         "PORT": 3306,
@@ -101,7 +101,7 @@ if os.environ.get("GITHUB_WORKFLOW"):
         "default": {
             "ENGINE": "django.db.backends.mysql",
             "NAME": os.environ.get("MYSQL_DATABASE"),
-            "USER": os.environ.get("MYSQL_USER"),
+            "USER": "runner",
             "PASSWORD": os.environ.get("MYSQL_PASSWORD"),
             "HOST": "127.0.0.1",
             "PORT": 3306,
