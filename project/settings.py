@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+
 import os
 from pathlib import Path
 
@@ -25,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG") == "True"
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -94,6 +95,18 @@ DATABASES = {
         "PORT": 3306,
     }
 }
+
+if os.environ.get("GITHUB_WORKFLOW"):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.environ.get("MYSQL_DATABASE"),
+            "USER": "runner",
+            "PASSWORD": os.environ.get("MYSQL_PASSWORD"),
+            "HOST": "127.0.0.1",
+            "PORT": 3306,
+        }
+    }
 
 
 # Password validation
@@ -167,18 +180,18 @@ if DEBUG:
     EMAIL_PORT = 1025
     # 送信中の文章の暗号化をFalseにします
     EMAIL_USE_TLS = False
-else:
-    # AWSの設定
-    AWS_ACCESS_KEY_ID = os.environ.get("AWS_SES_REGION_NAME")
-    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-    # メールの設定
-    EMAIL_BACKEND = "django_ses.SESBackend"
-    AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME")
-    AWS_SES_REGION_ENDPOINT = os.environ.get("AWS_SES_REGION_ENDPOINT")
-    DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-    STATICFILES_STORAGE = "storages.backends.s3boto3.S3StaticStorage"
-    AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+# else:
+#     # AWSの設定
+#     AWS_ACCESS_KEY_ID = os.environ.get("AWS_SES_REGION_NAME")
+#     AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+#     # メールの設定
+#     EMAIL_BACKEND = "django_ses.SESBackend"
+#     AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME")
+#     AWS_SES_REGION_ENDPOINT = os.environ.get("AWS_SES_REGION_ENDPOINT")
+#     DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
+#     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+#     STATICFILES_STORAGE = "storages.backends.s3boto3.S3StaticStorage"
+#     AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
 
-MEDIA_URL = "/upload/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "upload")
+# MEDIA_URL = "/upload/"
+# MEDIA_ROOT = os.path.join(BASE_DIR, "upload")
