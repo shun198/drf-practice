@@ -44,6 +44,13 @@ profile = "black"
 [tool.black]
 line-length = 79
 
+# pytest.iniの設定
+[tool.pytest.ini_options]
+# プロジェクトのsettings.pyのパスを指定
+DJANGO_SETTINGS_MODULE=project.settings
+# pytestのオプションを指定
+addopts = -v -s --durations=0 --suppress-no-test-exit-code
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
