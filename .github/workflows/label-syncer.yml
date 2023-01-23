@@ -1,9 +1,8 @@
 name: Sync labels
 
-# on:
-#   schedule:
-#     - cron: "0 9 * * 1"
-on: push
+on:
+  schedule:
+    - cron: "0 9 * * 1"
 
 jobs:
   build:
