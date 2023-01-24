@@ -101,9 +101,9 @@ if os.environ.get("GITHUB_WORKFLOW"):
         "default": {
             "ENGINE": "django.db.backends.mysql",
             "NAME": os.environ.get("MYSQL_DATABASE"),
-            "USER": "runner",
+            "USER": os.environ.get("MYSQL_USER"),
             "PASSWORD": os.environ.get("MYSQL_PASSWORD"),
-            "HOST": "127.0.0.1",
+            "HOST": "db",
             "PORT": 3306,
         }
     }
