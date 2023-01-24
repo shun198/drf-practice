@@ -35,3 +35,23 @@ version-resolver:
 template: |
   ## Changes
   $CHANGES
+
+autolabeler:
+  - label: enhancement
+    branch:
+      - '/^feat(ure)?[/-].+/'
+  - label: bug
+    branch:
+      - '/^fix[/-].+/'
+  - label: emergency
+    branch:
+      - '/^hotfix[/-].+/'
+  - label: test
+    branch:
+      - '/^test[/-].+/'
+  - label: refactor
+    branch:
+      - '/^refactor[/-].+/'
+  - label: documentation
+    branch:
+      - '/^docs[/-].+/'
