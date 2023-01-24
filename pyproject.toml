@@ -47,3 +47,6 @@ line-length = 79
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = -v -s --durations=0 --suppress-no-test-exit-code
