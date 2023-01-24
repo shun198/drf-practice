@@ -91,22 +91,10 @@ DATABASES = {
         "NAME": os.environ.get("MYSQL_DATABASE"),
         "USER": os.environ.get("MYSQL_USER"),
         "PASSWORD": os.environ.get("MYSQL_PASSWORD"),
-        "HOST": "db",
+        "HOST": "127.0.0.1",
         "PORT": 3306,
     }
 }
-
-if os.environ.get("GITHUB_WORKFLOW"):
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": "django-db",
-            "USER": "django",
-            "PASSWORD": "django",
-            "HOST": "db",
-            "PORT": 3306,
-        }
-    }
 
 
 # Password validation
