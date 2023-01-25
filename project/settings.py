@@ -109,7 +109,7 @@ else:
             "PORT": 3306,
         },
         "TEST": {
-            'NAME': "test_test_db",
+            "NAME": "test_django-db",
         },
 }
 
