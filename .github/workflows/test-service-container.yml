@@ -15,7 +15,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: django-db
-          MYSQL_USER: django
+          MYSQL_USER: runner
           MYSQL_PASSWORD: django
         options: >-
           --health-cmd "mysqladmin ping"
