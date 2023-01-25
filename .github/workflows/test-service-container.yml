@@ -8,7 +8,7 @@ jobs:
     name: Run Test Code
     runs-on: ubuntu-20.04
     services:
-      mysql:
+      db:
         image: mysql:8.0.31
         ports:
           - 3306:3306
@@ -31,12 +31,6 @@ jobs:
           python-version: '3.10'
           cache: 'poetry'
       - run: poetry install
-      - name: Show databases for root user
-        run: mysql --protocol=tcp -h localhost -P 3306 -u root -proot -e "select user,host FROM mysql.user"
-      - name: Give privileges to runner
-        run: |
-          GRANT ALL PRIVILEGES ON *.* TO 'runner'@'%';
-          FLUSH PRIVILEGES;
       - name: Run migration
         run: |
           poetry run python manage.py makemigrations
