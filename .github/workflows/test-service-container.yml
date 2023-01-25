@@ -15,7 +15,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: django-db
-          MYSQL_USER: runner
+          MYSQL_USER: django
           MYSQL_PASSWORD: django
         options: >-
           --health-cmd "mysqladmin ping"
@@ -24,7 +24,7 @@ jobs:
           --health-retries 5
     steps:
       - name: Show databases for root user
-        run: mysql --protocol=tcp -h localhost -P 3306 -u root -proot -e "SHOW DATABASES"
+        run: mysql --protocol=tcp -h localhost -P 3306 -u root -pdjango -e "SHOW DATABASES"
       - name: Show databases for user1
         run: mysql --protocol=tcp -h localhost -P 3306 -u django -pdjango -e "SHOW DATABASES"
       - uses: actions/checkout@v3
