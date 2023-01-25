@@ -36,6 +36,8 @@ jobs:
           DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
           DEBUG: ${{ secrets.DEBUG }}
           DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
+      - name: inspect environment variables
+        run: env
       - name: Install poetry
         run: pipx install poetry
       - uses: actions/setup-python@v4
