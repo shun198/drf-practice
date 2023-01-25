@@ -29,12 +29,10 @@ jobs:
           --health-retries 5
     steps:
       - uses: actions/checkout@v3
-      - name: Insepct environment variables
+      - name: Grant privileges to user
         run: |
-          env | grep DEBUG
-          env | grep DJANGO_SETTINGS_MODULE
-          env | grep SECRET_KEY
-          env
+          mysql --protocol=tcp -h localhost -P 3306 -u django -pdjango -e "GRANT ALL PRIVILEGES ON *.* TO 'django'@'%';
+          mysql --protocol=tcp -h localhost -P 3306 -u django -pdjango -e "FLUSH PRIVILEGES;"
       - name: Install poetry
         run: pipx install poetry
       - uses: actions/setup-python@v4
