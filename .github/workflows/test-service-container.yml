@@ -33,7 +33,7 @@ jobs:
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
           MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+          ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
           DEBUG: ${{ secrets.DEBUG }}
           DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
       - name: Install poetry
