@@ -5,7 +5,9 @@ on:
       - "release/**"
 
 env:
+  DEBUG: "True"
   DJANGO_SETTINGS_MODULE: project.settings
+  SECRET_KET: django
 jobs:
   test:
     name: Run Test Code
