@@ -7,7 +7,7 @@ on:
 env:
   DEBUG: "True"
   DJANGO_SETTINGS_MODULE: project.settings
-  SECRET_KET: django
+  SECRET_KEY: django
 jobs:
   test:
     name: Run Test Code
@@ -33,7 +33,7 @@ jobs:
         run: |
           env | grep DEBUG
           env | grep DJANGO_SETTINGS_MODULE
-          env | grep SECRET_KET
+          env | grep SECRET_KEY
           env
       - name: Install poetry
         run: pipx install poetry
