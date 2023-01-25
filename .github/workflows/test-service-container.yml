@@ -30,7 +30,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Insepct environment variables
-        run: env | grep DJANGO_SETTINGS_MODULE
+        run: |
+          env | grep DEBUG
+          env | grep DJANGO_SETTINGS_MODULE
+          env | grep SECRET_KET
+          env
       - name: Install poetry
         run: pipx install poetry
       - uses: actions/setup-python@v4
