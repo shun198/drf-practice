@@ -107,7 +107,10 @@ else:
             "PASSWORD": "django",
             "HOST": "db",
             "PORT": 3306,
-        }
+        },
+        "TEST": {
+            'NAME': "test_test_db",
+        },
 }
 
 # Password validation
