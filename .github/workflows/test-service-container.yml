@@ -24,19 +24,10 @@ jobs:
           --health-retries 5
     steps:
       - uses: actions/checkout@v3
-      - name: generate .env
-        run:
-          chmod +x set-up-env.test.sh && sh set-up-env.test.sh
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-          MYSQL_USER: ${{ secrets.MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
-          DEBUG: ${{ secrets.DEBUG }}
-          DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
-      - name: inspect environment variables
+      - name: Configure environment variables
+        run: |
+          export DJANGO_SETTINGS_MODULE=project.settings
+      - name: Insepct environment variables
         run: env
       - name: Install poetry
         run: pipx install poetry
