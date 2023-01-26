@@ -32,8 +32,6 @@ jobs:
           --health-retries 5
     steps:
       - uses: actions/checkout@v3
-      - name: Inspect env
-        run: env
       - name: Grant privileges to user
         run: |
           mysql --protocol=tcp -h 127.0.0.1 -P 3306 -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'django'@'%'; FLUSH PRIVILEGES;"
@@ -49,7 +47,7 @@ jobs:
           poetry run python manage.py makemigrations
           poetry run python manage.py migrate
       - name: Run Pytest
-        run: poetry run poetry run pytest -n auto --cov --cov-branch --cov-report=term-missing --suppress-no-test-exit-code
+        run: poetry run poetry run pytest -n auto --cov=application/tests/ --cov-branch --cov-report=term-missing --suppress-no-test-exit-code
   # health-check:
   #   runs-on: ubuntu-20.04
   #   needs: Setup
