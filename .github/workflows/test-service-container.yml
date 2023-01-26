@@ -1,9 +1,9 @@
 name: Test Service Container
 on:
   pull_request:
-    branches:
-      - "!release/**"
-      - "!docs/**"
+    # branches:
+    #   - "!release/**"
+    #   - "!docs/**"
 
 env:
   DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
