@@ -85,32 +85,16 @@ WSGI_APPLICATION = "project.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
-if os.environ.get('GITHUB_WORKFLOW'):
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            # コンテナ内の環境変数をDATABASESのパラメータに反映
-            "NAME": "django-db",
-            "USER": "django",
-            "PASSWORD": "django",
-            "HOST": "127.0.0.1",
-            "PORT": 3306,
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        # コンテナ内の環境変数をDATABASESのパラメータに反映
+        "NAME": os.environ.get("MYSQL_DATABASE"),
+        "USER": os.environ.get("MYSQL_USER"),
+        "PASSWORD": os.environ.get("MYSQL_PASSWORD"),
+        "HOST": os.environ.get("MYSQL_HOST", "127.0.0.1"),
+        "PORT": os.environ.get("MYSQL_PORT", "3306"),
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            # コンテナ内の環境変数をDATABASESのパラメータに反映
-            "NAME": "django-db",
-            "USER": "django",
-            "PASSWORD": "django",
-            "HOST": "db",
-            "PORT": 3306,
-        },
-        "TEST": {
-            "NAME": "test_django-db",
-        },
 }
 
 # Password validation
