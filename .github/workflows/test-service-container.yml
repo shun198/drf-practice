@@ -11,7 +11,7 @@ env:
   MYSQL_USER: ${{ secrets.MYSQL_USER }}
   MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
 jobs:
-  test:
+  Setup:
     if: ${{ github.event.pull_request.draft == false }}
     name: Run Test Code
     runs-on: ubuntu-20.04
@@ -48,5 +48,21 @@ jobs:
         run: |
           poetry run python manage.py makemigrations
           poetry run python manage.py migrate
-      - name: Run tests
-        run: poetry run pytest
+  health-check:
+    runs-on: ubuntu-20.04
+    needs: Setup
+    steps:
+      - name: Run healthcheck test
+        run: poetry run pytest application/tests/test_health_check.py
+  login:
+    runs-on: ubuntu-20.04
+    needs: Setup
+    steps:
+      - name: Run login test
+        run: poetry run pytest application/tests/test_login.py
+  mail:
+    runs-on: ubuntu-20.04
+    needs: Setup
+    steps:
+      - name: Run mail test
+        run: poetry run pytest application/tests/mail/test_email.py
