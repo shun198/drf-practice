@@ -5,6 +5,12 @@ on:
       - "release/**"
       - "docs/**"
 
+env:
+  DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
+  MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+  MYSQL_USER: ${{ secrets.MYSQL_USER }}
+  MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+
 jobs:
   Setup:
     if: ${{ github.event.pull_request.draft == false }}
@@ -29,8 +35,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Grant privileges to user
         run: mysql --protocol=tcp -h 127.0.0.1 -P 3306 -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'%'; FLUSH PRIVILEGES;"
-        env:
-          MYSQL_USER: ${{ secrets.MYSQL_USER }}
       - name: Install poetry
         run: pipx install poetry
       - uses: actions/setup-python@v4
@@ -44,8 +48,6 @@ jobs:
           poetry run python manage.py migrate
       - name: Run Pytest
         run: poetry run poetry run pytest -x -n auto --cov=application/tests/ --suppress-no-test-exit-code
-        env:
-          DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
   # health-check:
   #   runs-on: ubuntu-20.04
   #   needs: Setup
