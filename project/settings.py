@@ -26,7 +26,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "TEST")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", True)
 
-ALLOWED_HOSTS = (os.environ.get("DJANGO_ALLOWED_HOSTS").split(" "),["127.0.0.1"])
+if os.environ.get('GITHUB_WORKFLOW'):
+    ALLOWED_HOSTS = ["127.0.0.1"]
+else:
+    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
