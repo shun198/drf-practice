@@ -5,12 +5,10 @@ on:
       - "release/**"
 
 env:
-  DEBUG: "True"
-  DJANGO_SETTINGS_MODULE: project.settings
-  SECRET_KEY: django
-  MYSQL_DATABASE: django-db
-  MYSQL_USER: django
-  MYSQL_PASSWORD: django
+  DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
+  MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+  MYSQL_USER: ${{ secrets.MYSQL_USER }}
+  MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
 jobs:
   test:
     name: Run Test Code
@@ -21,10 +19,10 @@ jobs:
         ports:
           - 3306:3306
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: django-db
-          MYSQL_USER: django
-          MYSQL_PASSWORD: django
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         options: >-
           --health-cmd "mysqladmin ping"
           --health-interval 10s
