@@ -8,6 +8,9 @@ env:
   DEBUG: "True"
   DJANGO_SETTINGS_MODULE: project.settings
   SECRET_KEY: django
+  MYSQL_DATABASE: django-db
+  MYSQL_USER: django
+  MYSQL_PASSWORD: django
 jobs:
   test:
     name: Run Test Code
@@ -29,6 +32,8 @@ jobs:
           --health-retries 5
     steps:
       - uses: actions/checkout@v3
+      - name: Inspect env
+        run: env
       - name: Grant privileges to user
         run: |
           mysql --protocol=tcp -h 127.0.0.1 -P 3306 -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'django'@'%'; FLUSH PRIVILEGES;"
