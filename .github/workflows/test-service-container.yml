@@ -4,9 +4,6 @@ on:
     branches-ignore:
       - "release/**"
       - "docs/**"
-    # branches:
-    #   - "!release/**"
-    #   - "!docs/**"
 
 env:
   DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
@@ -53,12 +50,12 @@ jobs:
           poetry run python manage.py migrate
       - name: Run Pytest
         run: poetry run pytest
-  # health-check:
-  #   runs-on: ubuntu-20.04
-  #   needs: Setup
-  #   steps:
-  #     - name: Run healthcheck test
-  #       run: poetry run pytest application/tests/test_health_check.py
+  health-check:
+    runs-on: ubuntu-20.04
+    needs: Setup
+    steps:
+      - name: Run healthcheck test
+        run: poetry run pytest application/tests/test_health_check.py
   # login:
   #   runs-on: ubuntu-20.04
   #   needs: Setup
