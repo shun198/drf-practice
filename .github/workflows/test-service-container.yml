@@ -1,4 +1,4 @@
-name: Test Service Container
+name: Run Pytest
 on:
   pull_request:
     branches-ignore:
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-20.04
     services:
       db:
-        image: mysql:8.0.31
+        image: mysql:8.0
         ports:
           - 3306:3306
         env:
