@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "TEST")
 DEBUG = os.environ.get("DEBUG", True)
 
 if os.environ.get('GITHUB_WORKFLOW'):
-    ALLOWED_HOSTS = ["127.0.0.1"]
+    ALLOWED_HOSTS = []
 else:
     ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
