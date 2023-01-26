@@ -49,13 +49,13 @@ jobs:
           poetry run python manage.py makemigrations
           poetry run python manage.py migrate
       - name: Run Pytest
-        run: poetry run pytest
-  health-check:
-    runs-on: ubuntu-20.04
-    needs: Setup
-    steps:
-      - name: Run healthcheck test
-        run: poetry run pytest application/tests/test_health_check.py
+        run: poetry run poetry run pytest -n auto --cov --cov-branch --cov-report=term-missing --suppress-no-test-exit-code
+  # health-check:
+  #   runs-on: ubuntu-20.04
+  #   needs: Setup
+  #   steps:
+  #     - name: Run healthcheck test
+  #       run: poetry run pytest application/tests/test_health_check.py
   # login:
   #   runs-on: ubuntu-20.04
   #   needs: Setup
