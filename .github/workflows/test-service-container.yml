@@ -5,6 +5,7 @@ on:
       - "release/**"
 
 env:
+  ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
   DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
   MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
   MYSQL_USER: ${{ secrets.MYSQL_USER }}
