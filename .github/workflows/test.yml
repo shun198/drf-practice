@@ -48,6 +48,7 @@ jobs:
           poetry run python manage.py migrate
       # - name: Run Pytest
       #   run: poetry run poetry run pytest -x -n auto --cov=application/tests/ --suppress-no-test-exit-code
+  # 並行テストを実行
   health-check:
     runs-on: ubuntu-20.04
     needs: Setup
