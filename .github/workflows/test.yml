@@ -46,24 +46,5 @@ jobs:
         run: |
           poetry run python manage.py makemigrations
           poetry run python manage.py migrate
-      # - name: Run Pytest
-      #   run: poetry run poetry run pytest -x -n auto --cov=application/tests/ --suppress-no-test-exit-code
-  # 並行テストを実行
-  health-check:
-    runs-on: ubuntu-20.04
-    needs: Setup
-    steps:
-      - name: Run healthcheck test
-        run: poetry run pytest application/tests/test_health_check.py
-  login:
-    runs-on: ubuntu-20.04
-    needs: Setup
-    steps:
-      - name: Run login test
-        run: poetry run pytest application/tests/test_login.py
-  mail:
-    runs-on: ubuntu-20.04
-    needs: Setup
-    steps:
-      - name: Run mail test
-        run: poetry run pytest application/tests/mail/test_email.py
+      - name: Run Pytest
+        run: poetry run poetry run pytest -x -n auto --cov=application/tests/ --suppress-no-test-exit-code
