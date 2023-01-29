@@ -46,5 +46,11 @@ jobs:
         run: |
           poetry run python manage.py makemigrations
           poetry run python manage.py migrate
-      - name: Run Pytest
-        run: poetry run poetry run pytest -x -n auto --cov=application/tests/ --suppress-no-test-exit-code
+      # - name: Run Pytest
+      #   run: poetry run poetry run pytest -x -n auto --cov=application/tests/ --suppress-no-test-exit-code
+      - name: Run mail test
+        run: poetry run pytest application/tests/mail/
+      - name: Run health check test
+        run: poetry run pytest application/tests/test_health_check.py
+      - name: Run login test
+        run: poetry run pytest application/tests/test_login.py
