@@ -1,4 +1,4 @@
-name: Run Pytest
+name: Run Pytest Parallel
 on:
   pull_request:
     branches-ignore:
@@ -52,6 +52,6 @@ jobs:
     name: Run Test Code
     runs-on: ubuntu-20.04
     steps:
-      - uses: ./.github/actions/set-up-project.yml
+      - uses: ./.github/workflows/set-up-project.yml
       - name: Run Test
         run: poetry run pytest
