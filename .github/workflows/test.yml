@@ -47,4 +47,4 @@ jobs:
           poetry run python manage.py makemigrations
           poetry run python manage.py migrate
       - name: Run Pytest
-        run: poetry run poetry run pytest -x -n auto --cov=application/tests/ --suppress-no-test-exit-code
+        run: poetry run poetry run pytest -x -n auto --cov -no-cov-on-fail --suppress-no-test-exit-code
