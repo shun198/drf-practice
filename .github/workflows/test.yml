@@ -47,7 +47,7 @@ jobs:
           poetry run python manage.py makemigrations
           poetry run python manage.py migrate
       - name: Run Pytest
-        run: poetry run poetry run pytest -x -n auto --cov -no-cov-on-fail --suppress-no-test-exit-code > pytest-coverage.txt
+        run: poetry run poetry run pytest -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code > pytest-coverage.txt
       - name: pytest-coverage-commentator
         uses: coroo/pytest-coverage-commentator@v1.0.2
         with:
