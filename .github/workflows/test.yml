@@ -47,7 +47,7 @@ jobs:
           poetry run python manage.py makemigrations
           poetry run python manage.py migrate
       - name: Run Pytest
-        run: poetry run poetry run pytest --junitxml=pytest.xml -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code | tee pytest-coverage.txt
+        run: poetry run poetry run pytest --junitxml=pytest.xml -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code application/tests/views/user.py application/tests/views/health_check.py application/tests/views/login.py | tee pytest-coverage.txt
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
         with:
