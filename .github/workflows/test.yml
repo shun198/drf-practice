@@ -48,7 +48,7 @@ jobs:
           poetry run python manage.py migrate
       - name: Run Pytest
         run: |
-          # set -o pipefail
+          set -o pipefail
           poetry run poetry run pytest --junitxml=pytest.xml -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code | tee pytest-coverage.txt
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
