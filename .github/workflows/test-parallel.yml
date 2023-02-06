@@ -53,6 +53,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/workflows/set-up-project.yml
+      - uses: ./.github/actions/set-up-project.yml
       - name: Run Test
         run: poetry run pytest
