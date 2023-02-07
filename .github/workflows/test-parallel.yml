@@ -3,7 +3,7 @@ on:
   pull_request:
     branches-ignore:
       - "release/**"
-      - "docs/**"
+      - "doc/**"
 
 env:
   DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
@@ -53,6 +53,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/set-up-project.yml
+      - uses: ./.github/workflows/set-up-project.yml
       - name: Run Test
         run: poetry run pytest

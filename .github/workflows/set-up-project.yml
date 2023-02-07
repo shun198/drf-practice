@@ -3,7 +3,7 @@ on:
   pull_request:
     branches-ignore:
       - "release/**"
-      - "docs/**"
+      - "doc/**"
 
 env:
   DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
