@@ -1,9 +1,6 @@
 name: Run Pytest
 on:
-  pull_request:
-    branches-ignore:
-      - "release/**"
-      - "doc/**"
+  workflow_call:
 
 env:
   DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
@@ -13,7 +10,6 @@ env:
 
 jobs:
   Setup:
-    if: ${{ github.event.pull_request.draft == false }}
     name: Run Test Code
     runs-on: ubuntu-20.04
     services:
