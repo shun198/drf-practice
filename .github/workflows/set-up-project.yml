@@ -1,9 +1,6 @@
 name: Run Pytest
 on:
-  pull_request:
-    branches-ignore:
-      - "release/**"
-      - "doc/**"
+  workflow_call:
 
 env:
   DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
@@ -13,7 +10,6 @@ env:
 
 jobs:
   Setup:
-    if: ${{ github.event.pull_request.draft == false }}
     name: Run Test Code
     runs-on: ubuntu-20.04
     services:
@@ -46,12 +42,3 @@ jobs:
         run: |
           poetry run python manage.py makemigrations
           poetry run python manage.py migrate
-      - name: Run Pytest
-        run: |
-          set -o pipefail
-          poetry run poetry run pytest --junitxml=pytest.xml -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code | tee pytest-coverage.txt
-      - name: Pytest coverage comment
-        uses: MishaKav/pytest-coverage-comment@main
-        with:
-          pytest-coverage-path: ./pytest-coverage.txt
-          junitxml-path: ./pytest.xml
