@@ -1,6 +1,6 @@
 name: Run Pytest Using Matrix
-on:
-  workflow_dispatch:
+
+on: workflow_dispatch
 
 env:
   SECRET_KEY: test
