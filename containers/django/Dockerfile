@@ -4,8 +4,10 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /code
-COPY pyproject.toml /code/
-COPY . /code/
+COPY application/pyproject.toml /code/
+# Initialize python project with Poetry
 RUN pip install --upgrade pip && pip install poetry
 RUN poetry install
-RUN chmod 755 /code/entrypoint.sh
+
+COPY ./containers/django/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh

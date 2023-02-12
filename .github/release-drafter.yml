@@ -54,4 +54,4 @@ autolabeler:
       - '/^refactor[/-].+/'
   - label: documentation
     branch:
-      - '/^docs[/-].+/'
+      - '/^doc[/-].+/'

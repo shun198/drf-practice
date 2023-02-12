@@ -12,8 +12,11 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     # 環境変数
-    env_file:
-      - .env
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
     ports:
       - "3306:3306"
     healthcheck:
@@ -28,13 +31,13 @@ services:
       context: .
       dockerfile: containers/django/Dockerfile
     volumes:
-      - .:/code
+      - ./application:/code
       - ./static:/static
     ports:
       - "8000:8000"
       # デバッグ用ポート
       - "8080:8080"
-    command: sh -c "/code/entrypoint.sh"
+    command: sh -c "/usr/local/bin/entrypoint.sh"
     # 表示をきれいにする
     tty: true
     # 入力チャネルを開く
