@@ -40,10 +40,10 @@ test:
 	$(RUN_PYTEST)
 
 test-cov:
-	$(RUN_PYTEST) --cov=application/tests/
+	$(RUN_PYTEST) --cov
 
 make_report:
-	-@ $(RUN_PYTEST) --alluredir=allure-results
+	-@ $(RUN_PYTEST) --alluredir=../allure-results
 	sh send_results.sh
 	echo "Generating test report. This may take a while..."
 	curl -X GET "http://127.0.0.1:5050/allure-docker-service/generate-report?project_id=$(PROJECT)" -H  "accept: */*"
