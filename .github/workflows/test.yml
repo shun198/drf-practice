@@ -46,7 +46,8 @@ jobs:
         run: pipx install poetry
       - uses: actions/setup-python@v4
         with:
-          python-version: 3.10
+          # stringにしないと3.1になってしまい、エラーになる
+          python-version: '3.10'
           cache: 'poetry'
       - run: poetry install
       - name: Run migration
