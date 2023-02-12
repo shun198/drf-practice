@@ -1,0 +1,62 @@
+name: Run Pytest
+on:
+  workflow_dispatch:
+
+env:
+  SECRET_KEY: test
+  DJANGO_SETTINGS_MODULE: project.settings
+  ALLOWED_HOSTS: 127.0.0.1
+  DEBUG: "True"
+  MYSQL_ROOT_PASSWORD: root
+  MYSQL_DATABASE: test-db
+  MYSQL_HOST: 127.0.0.1
+  MYSQL_PORT: 3306
+  MYSQL_USER: test
+  MYSQL_PASSWORD: test
+
+jobs:
+  Setup:
+    name: Run Test Code
+    # 実行したいバッケージ等のバージョンを配列内にstrategyとmatrixに指定
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10']
+        os: [ubuntu-latest, ubuntu-20.04]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: application
+    services:
+      db:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ env.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+        options: >-
+          --health-cmd "mysqladmin ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v3
+      - name: Grant privileges to user
+        run: mysql --protocol=tcp -h 127.0.0.1 -P 3306 -u root -p$MYSQL_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'%'; FLUSH PRIVILEGES;"
+      - name: Install poetry
+        run: pipx install poetry
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'poetry'
+      - run: poetry install
+      - name: Run migration
+        run: |
+          poetry run python manage.py makemigrations
+          poetry run python manage.py migrate
+      - name: Run Pytest
+        run: poetry run pytest -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code
+
+
