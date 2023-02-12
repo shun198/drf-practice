@@ -20,7 +20,7 @@ jobs:
     # 実行したいバッケージ等のバージョンを配列内にstrategyとmatrixに指定
     strategy:
       matrix:
-        python-version: ['3.8', '3.9', '3.10']
+        python-version: ['3.10.5', '3.10.6', '3.10.7']
         os: [ubuntu-latest, ubuntu-20.04]
     runs-on: ${{ matrix.os }}
     defaults:
