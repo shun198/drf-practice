@@ -1,10 +1,6 @@
-name: Run Pytest
-on:
-  pull_request:
-    types: [opened, reopened, synchronize, ready_for_review]
-    branches-ignore:
-      - "release/**"
-      - "doc/**"
+name: Run Pytest Using Matrix
+
+on: workflow_dispatch
 
 env:
   SECRET_KEY: test
@@ -20,9 +16,13 @@ env:
 
 jobs:
   Setup:
-    if: ${{ github.event.pull_request.draft == false }}
     name: Run Test Code
-    runs-on: ubuntu-20.04
+    # 実行したいバッケージ等のバージョンを配列内にstrategyとmatrixに指定
+    strategy:
+      matrix:
+        python-version: [3.10.5, 3.10.6, 3.10.7]
+        os: [ubuntu-latest, ubuntu-20.04]
+    runs-on: ${{ matrix.os }}
     defaults:
       run:
         working-directory: application
@@ -51,7 +51,7 @@ jobs:
       - name: Use cache dependencies
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: ${{ matrix.python-version }}
           cache: 'poetry'
       - name: Install Packages
         run: poetry install
@@ -60,12 +60,6 @@ jobs:
           poetry run python manage.py makemigrations
           poetry run python manage.py migrate
       - name: Run Pytest
-        run: |
-          set -o pipefail
-          poetry run pytest --junitxml=pytest.xml -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code | tee pytest-coverage.txt
-      - name: Pytest coverage comment
-        uses: MishaKav/pytest-coverage-comment@main
-        with:
-          pytest-coverage-path: application/pytest-coverage.txt
-          junitxml-path: application/pytest.xml
+        run: poetry run pytest -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code
+
 
