@@ -60,10 +60,9 @@ jobs:
       - name: Run Pytest
         run: |
           set -o pipefail
-          poetry run poetry run pytest --junitxml=pytest.xml -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code | tee pytest-coverage.txt
+          poetry run poetry run pytest --junitxml=application/pytest.xml -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code | tee application/pytest-coverage.txt
       - name: Inspect Files
         run: |
-          ls -la /
           ls -la application/
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
