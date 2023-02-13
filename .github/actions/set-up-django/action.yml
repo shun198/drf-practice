@@ -21,9 +21,9 @@ runs:
         ls -la
       shell: bash
     - name: Install Packages
-      working-directory: application
       run: poetry install
       shell: bash
+      working-directory: application
     - name: Execute Migration
       run: |
         poetry run python manage.py makemigrations
