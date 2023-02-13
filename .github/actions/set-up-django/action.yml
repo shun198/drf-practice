@@ -16,6 +16,10 @@ runs:
       with:
         python-version: '3.10'
         cache: 'poetry'
+    - name: Inspect files
+      run: |
+        ls -la
+      shell: bash
     - name: Install Packages
       working-directory: application
       run: poetry install
