@@ -25,7 +25,7 @@ jobs:
     name: Run Test Code
     strategy:
       matrix:
-        test-path: ['application/application/tests/test_health_check.py', 'application/application/tests/test_login.py']
+        test-path: ['application/tests/test_health_check.py', 'application/tests/test_login.py']
     runs-on: ubuntu-20.04
     defaults:
       run:
@@ -55,9 +55,7 @@ jobs:
         with:
           working-directory: ${{ env.WORKING_DIRECTORY }}
       - name: Run Pytest
-        run: |
-          set -o pipefail
-          poetry run pytest ${{ matrix.test-path }} -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code
+        run: poetry run pytest ${{ matrix.test-path }} -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code
 
   # Test2:
   #   if: ${{ github.event.pull_request.draft == false }}
