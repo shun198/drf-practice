@@ -1,8 +1,13 @@
-name: 'Setup Django'
+name: 'Setup Poetry and Django'
 
 description: 'Setup Django by using cache and Poetry'
 
 # inputの箇所にpathを指定してあげるのはどうかな？
+inputs:
+  path:
+    description: 'path of pyproject.toml'
+    required: false
+    default: 'application'
 
 runs:
   # compositeが必須
@@ -23,10 +28,10 @@ runs:
     - name: Install Packages
       run: poetry install
       shell: bash
-      working-directory: application
+      working-directory: ${{ inputs.path }}
     - name: Execute Migration
       run: |
         poetry run python manage.py makemigrations
         poetry run python manage.py migrate
       shell: bash
-      working-directory: application
+      working-directory: ${{ inputs.path }}
