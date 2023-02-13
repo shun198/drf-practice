@@ -6,7 +6,7 @@ description: 'Setup Django by using cache and Poetry'
 inputs:
   path:
     description: 'path of pyproject.toml'
-    required: false
+    required: true
     default: 'application'
 
 runs:
@@ -21,10 +21,6 @@ runs:
       with:
         python-version: '3.10'
         cache: 'poetry'
-    - name: Inspect files
-      run: |
-        ls -la
-      shell: bash
     - name: Install Packages
       run: poetry install
       shell: bash

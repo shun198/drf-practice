@@ -48,6 +48,8 @@ jobs:
         run: mysql --protocol=tcp -h 127.0.0.1 -P 3306 -u root -p$MYSQL_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'%'; FLUSH PRIVILEGES;"
       - name: Setup Django
         uses: ./.github/actions/set-up-django
+        with:
+          path: 'application'
       - name: Run Pytest
         run: |
           set -o pipefail
