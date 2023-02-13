@@ -1,0 +1,18 @@
+name: Setup Poetry
+
+on:
+  workflow_call:
+
+jobs:
+  cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install poetry
+        run: pipx install poetry
+      - name: Use cache dependencies
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'poetry'
+      - name: Install Packages
+        run: poetry install
