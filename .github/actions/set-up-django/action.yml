@@ -1,0 +1,25 @@
+name: 'Setup Django'
+# onはいらない
+description: 'Setup Django by using cache and Poetry'
+
+runs:
+  # compositeが必須
+  using: 'composite'
+  steps:
+    - name: Install poetry
+      run: pipx install poetry
+      shell: bash
+    - name: Use cache dependencies
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        cache: 'poetry'
+      shell: bash
+    - name: Install Packages
+      run: poetry install
+      shell: bash
+    - name: Execute Migration
+      run: |
+        poetry run python manage.py makemigrations
+        poetry run python manage.py migrate
+      shell: bash
