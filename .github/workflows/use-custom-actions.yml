@@ -22,7 +22,7 @@ env:
 jobs:
   Setup:
     if: ${{ github.event.pull_request.draft == false }}
-    name: Setup MySQL
+    name: Run Test Code
     runs-on: ubuntu-20.04
     defaults:
       run:
@@ -42,11 +42,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
-  Test:
-    name: Pytest
-    runs-on: ubuntu-20.04
-    needs: Setup
     steps:
       - name: Chekcout code
         uses: actions/checkout@v3
