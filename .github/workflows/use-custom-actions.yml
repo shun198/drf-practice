@@ -7,6 +7,7 @@ on:
       - "doc/**"
 
 env:
+  WORKING_DIRECTORY: application
   SECRET_KEY: test
   DJANGO_SETTINGS_MODULE: project.settings
   ALLOWED_HOSTS: 127.0.0.1
@@ -25,7 +26,7 @@ jobs:
     runs-on: ubuntu-20.04
     defaults:
       run:
-        working-directory: application
+        working-directory: ${{ env.WORKING_DIRECTORY }}
     services:
       db:
         image: mysql:8.0
@@ -49,7 +50,7 @@ jobs:
       - name: Setup Django
         uses: ./.github/actions/set-up-django
         with:
-          working-directory: 'application'
+          working-directory: ${{ env.WORKING_DIRECTORY }}
       - name: Run Pytest
         run: |
           set -o pipefail
