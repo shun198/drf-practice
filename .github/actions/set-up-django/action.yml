@@ -4,8 +4,8 @@ description: 'Setup Django by using cache and Poetry'
 
 # inputの箇所にpathを指定してあげるのはどうかな？
 inputs:
-  path:
-    description: 'path of pyproject.toml'
+  working-directory:
+    description: 'working-directory of pyproject.toml'
     required: true
     default: 'application'
 
@@ -24,10 +24,10 @@ runs:
     - name: Install Packages
       run: poetry install
       shell: bash
-      working-directory: ${{ inputs.path }}
+      working-directory: ${{ inputs.working-directory }}
     - name: Execute Migration
       run: |
         poetry run python manage.py makemigrations
         poetry run python manage.py migrate
       shell: bash
-      working-directory: ${{ inputs.path }}
+      working-directory: ${{ inputs.working-directory }}

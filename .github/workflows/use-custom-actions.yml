@@ -49,7 +49,7 @@ jobs:
       - name: Setup Django
         uses: ./.github/actions/set-up-django
         with:
-          path: 'application'
+          working-directory: 'application'
       - name: Run Pytest
         run: |
           set -o pipefail
