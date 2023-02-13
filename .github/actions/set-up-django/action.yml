@@ -1,6 +1,8 @@
 name: 'Setup Django'
-# onはいらない
+
 description: 'Setup Django by using cache and Poetry'
+
+# inputの箇所にpathを指定してあげるのはどうかな？
 
 runs:
   # compositeが必須
@@ -15,6 +17,7 @@ runs:
         python-version: '3.10'
         cache: 'poetry'
     - name: Install Packages
+      working-directory: application
       run: poetry install
       shell: bash
     - name: Execute Migration
