@@ -62,7 +62,7 @@ jobs:
           key: poetry-venv-${{ hashFiles('**/poetry.lock') }}
       - name: Install Packages
         run: |
-          poetry env use ~/.poetry/venv
+          poetry env use /usr/bin/bash
           poetry install
       - name: Run migration
         run: |
