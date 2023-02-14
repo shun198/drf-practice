@@ -78,4 +78,3 @@ jobs:
         with:
           pytest-coverage-path: application/pytest-coverage.txt
           junitxml-path: application/pytest.xml
-
