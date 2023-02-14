@@ -58,10 +58,6 @@ jobs:
           poetry config virtualenvs.in-project false
           poetry config cache-dir ~/.cache/pypoetry
           poetry config virtualenvs.path ~/.poetry/venv
-      - name: Debug Poetry
-        run: |
-          poetry env list
-          poetry env info
       - name: Use cache dependencies
         uses: actions/cache@v3
         with:
