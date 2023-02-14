@@ -2,9 +2,6 @@ name: Run Pytest Using Custom Actions
 on:
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
-    branches-ignore:
-      - "release/**"
-      - "doc/**"
 
 env:
   WORKING_DIRECTORY: application
@@ -21,7 +18,10 @@ env:
 
 jobs:
   Test:
-    if: ${{ github.event.pull_request.draft == false }}
+    if: |
+      github.event.pull_request.draft == false
+      && !startsWith(github.head_ref, 'release')
+      && !startsWith(github.head_ref, 'doc')
     name: Run Test Code
     strategy:
       matrix:
