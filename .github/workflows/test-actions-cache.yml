@@ -59,11 +59,13 @@ jobs:
           poetry config cache-dir ~/.cache/pypoetry
           poetry config virtualenvs.path ~/.poetry/venv
       - name: Use cache dependencies
+        id: cached-poetry-dependencies
         uses: actions/cache@v3
         with:
           path: ~/.cache/pypoetry
           key: poetry-venv-${{ hashFiles('**/poetry.lock') }}
       - name: Install Packages
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install
       - name: Run migration
         run: |
