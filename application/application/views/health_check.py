@@ -6,5 +6,5 @@ from rest_framework.permissions import AllowAny
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def health_check(request):
-    """ヘルスチェックのテスト"""
+    """ヘルスチェック"""
     return JsonResponse(data={"msg": "pass"}, status=200)

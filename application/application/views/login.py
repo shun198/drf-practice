@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet, ViewSet
 
-from application.models import User
+from application.models.user import User
 from application.serializers import LoginSerializer, UserSerializer
 
 
@@ -22,6 +22,7 @@ class LoginViewSet(ViewSet):
     logger = getLogger(__name__)
 
     @action(detail=False, methods=["POST"])
+    """ユーザのログイン"""
     def login(self, request):
         serializer = LoginSerializer(data=request.data)
         if not serializer.is_valid():
