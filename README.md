@@ -15,6 +15,7 @@
   <img src="https://img.shields.io/badge/-Gunicorn-199848.svg?logo=gunicorn&style=for-the-badge&logoColor=white">
   <!-- インフラ一覧 -->
   <img src="https://img.shields.io/badge/-Docker-1488C6.svg?logo=docker&style=for-the-badge">
+  <img src="https://img.shields.io/badge/-githubactions-FFFFFF.svg?logo=github-actions&style=for-the-badge">
 </p>
 
 ## 目次
@@ -79,7 +80,7 @@
 
 1. .env ファイルの配置
 
-   <ユーザ名>から.env ファイルをもらい、.env ファイルをルートディレクトリ直下に配置
+    <ユーザ名>から.env ファイルをもらい、.env ファイルをルートディレクトリ直下に配置
 
 2. プロジェクトの作成
 

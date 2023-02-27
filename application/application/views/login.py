@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet, ViewSet
 
-from application.models import User
+from application.models.user import User
 from application.serializers import LoginSerializer, UserSerializer
 
 
@@ -23,11 +23,10 @@ class LoginViewSet(ViewSet):
 
     @action(detail=False, methods=["POST"])
     def login(self, request):
+        """ユーザのログイン"""
         serializer = LoginSerializer(data=request.data)
         if not serializer.is_valid():
-            return JsonResponse(
-                serializer.errors, status=status.HTTP_400_BAD_REQUEST
-            )
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         employee_number = serializer.validated_data.get("employee_number")
         password = serializer.validated_data.get("password")
@@ -35,9 +34,7 @@ class LoginViewSet(ViewSet):
         if not user:
             self.logger.warning(f"ログインに失敗しました: {employee_number}")
             return JsonResponse(
-                data={
-                    "msg": "either employee number or password is incorrect"
-                },
+                data={"msg": "either employee number or password is incorrect"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         else:
