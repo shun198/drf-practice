@@ -1,7 +1,7 @@
 from django.db import DataError, IntegrityError
 from django.test import TransactionTestCase
 
-from application.models import User
+from application.models.user import User
 
 
 class TestUser(TransactionTestCase):
