@@ -1,0 +1,33 @@
+name: 'Setup Poetry and Django'
+
+description: 'Setup Django by using cache and Poetry'
+
+# inputの箇所にpathを指定してあげるのはどうかな？
+inputs:
+  working-directory:
+    description: 'working-directory of pyproject.toml'
+    required: true
+    default: application
+
+runs:
+  # compositeが必須
+  using: 'composite'
+  steps:
+    - name: Install poetry
+      run: pipx install poetry
+      shell: bash
+    - name: Use cache dependencies
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        cache: 'poetry'
+    - name: Install Packages
+      run: poetry install
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+    - name: Execute Migration
+      run: |
+        poetry run python manage.py makemigrations
+        poetry run python manage.py migrate
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
