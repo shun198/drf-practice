@@ -1,11 +1,15 @@
-name: Run Pytest
+name: Run Pdoc
 on:
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
 
 jobs:
-  Document:
-    name: Run Test Code
+  Docs:
+    if: |
+      github.event.pull_request.draft == false
+      && !startsWith(github.head_ref, 'release')
+      && !startsWith(github.head_ref, 'doc')
+    name: Deploy Pdoc to GitHub Pages
     runs-on: ubuntu-20.04
     defaults:
       run:
@@ -13,12 +17,20 @@ jobs:
     steps:
       - name: Chekcout code
         uses: actions/checkout@v3
-      - name: Install pdoc
-        run: pip install pdoc
-      - name: Run Pdoc
-        run: pdoc application/tests --html --force -o docs
-      - name: Deploy
+      - name: Install poetry
+        run: pipx install poetry
+      - name: Use cache dependencies
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'poetry'
+      - name: Install Packages
+        run: poetry install
+      - name: Pdoc
+        run: poetry run pdoc application/tests --html --force -o docs
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
+
