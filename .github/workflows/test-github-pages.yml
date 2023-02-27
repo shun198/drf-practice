@@ -1,0 +1,24 @@
+name: Run Pytest
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+
+jobs:
+  Document:
+    name: Run Test Code
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: application
+    steps:
+      - name: Chekcout code
+        uses: actions/checkout@v3
+      - name: Install pdoc
+        run: pip install pdoc
+      - name: Run Pdoc
+        run: pdoc application/tests --html --force -o docs
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
