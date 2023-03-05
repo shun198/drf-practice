@@ -5,9 +5,8 @@ on:
 
 env:
   SECRET_KEY: test
-  DJANGO_SETTINGS_MODULE: project.settings
+  DJANGO_SETTINGS_MODULE: project.settings.dev
   ALLOWED_HOSTS: 127.0.0.1
-  DEBUG: "True"
   MYSQL_ROOT_PASSWORD: root
   MYSQL_DATABASE: test-db
   MYSQL_HOST: 127.0.0.1
