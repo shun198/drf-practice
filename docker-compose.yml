@@ -55,7 +55,7 @@ services:
     container_name: localstack
     ports:
       - "4566:4566"
-    env_file:
+    environment:
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
 volumes:
