@@ -16,6 +16,10 @@ INSTALLED_APPS += [
     "drf_spectacular",
 ]
 
+MIDDLEWARE += [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+]
+
 ROOT_URLCONF = "project.urls.dev"
 
 # Djangoのメールの設定
