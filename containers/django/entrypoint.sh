@@ -4,7 +4,7 @@ set -eu
 poetry run python manage.py makemigrations
 poetry run python manage.py migrate
 
-if [ $DEBUG = "True" ]
+if [ $DJANGO_SETTINGS_MODULE = "project.settings.dev" ]
 then
     poetry run python manage.py runserver 0.0.0.0:8000
 else
