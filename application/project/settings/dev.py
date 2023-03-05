@@ -15,4 +15,4 @@ INSTALLED_APPS += [
     "drf_spectacular",
 ]
 
-ROOT_URLCONF = "project.urls"
+ROOT_URLCONF = "project.urls.dev"

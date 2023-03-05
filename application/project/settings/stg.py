@@ -2,4 +2,4 @@
 from .base import *
 
 DEBUG = False
-ROOT_URLCONF = "project.urls"
+ROOT_URLCONF = "project.urls.base"
