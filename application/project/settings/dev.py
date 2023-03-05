@@ -12,7 +12,17 @@ SPECTACULAR_SETTINGS = {
 }
 
 INSTALLED_APPS += [
+    "debug_toolbar",
     "drf_spectacular",
 ]
 
 ROOT_URLCONF = "project.urls.dev"
+
+# Djangoのメールの設定
+EMAIL_HOST = "mail"
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+# SMTPの1025番ポートを指定
+EMAIL_PORT = 1025
+# 送信中の文章の暗号化をFalseにします
+EMAIL_USE_TLS = False
