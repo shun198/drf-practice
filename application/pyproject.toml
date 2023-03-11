@@ -65,3 +65,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 addopts = "-v -s --durations=0"
+
+[tool.pytest]
+DJANGO_SETTINGS_MODULE = "project.settings.dev"
