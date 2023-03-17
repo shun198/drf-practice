@@ -1,4 +1,4 @@
-FROM --platform=linux/x86_64 python:3.10
+FROM --platform=linux/x86_64 python:3.11
 
 # 公開するポートを明示的に定義
 EXPOSE 8000
