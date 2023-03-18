@@ -32,7 +32,7 @@ services:
       - ./static:/static
     expose:
       - "8000"
-    command: sh -c "chmod 755 /code/entrypoint.sh && /code/entrypoint.sh"
+    command: sh -c "/usr/local/bin/entrypoint.sh"
     env_file:
       - ./.env
     depends_on:
