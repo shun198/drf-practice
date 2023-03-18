@@ -24,6 +24,7 @@ class AwsSettings(BaseSettings):
     AWS_SES_REGION_ENDPOINT: str
     AWS_STORAGE_BUCKET_NAME: str = "localstack"
     DEFAULT_FROM_EMAIL: str
+    AWS_PROFILE: str = "localstack"
 
 
 django_settings = DjangoSettings()

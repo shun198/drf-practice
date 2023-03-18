@@ -23,6 +23,7 @@ boto3 = "^1.26.22"
 django-ses = "^3.2.2"
 django-storages = "^1.13.1"
 pydantic = "^1.10.6"
+pillow = "^9.4.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.1.3"
