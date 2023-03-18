@@ -6,6 +6,7 @@ from drf_spectacular.views import (
     SpectacularRedocView,
     SpectacularSwaggerView,
 )
+
 from project.urls.base import urlpatterns
 
 urlpatterns += [

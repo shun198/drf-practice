@@ -1,7 +1,6 @@
+import tomllib
 from enum import Enum
 from typing import Any, Optional
-
-import tomllib
 
 
 class LoggerName(Enum):
