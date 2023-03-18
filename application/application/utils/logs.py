@@ -7,9 +7,7 @@ class LoggerName(Enum):
     """ロガー名"""
 
     APPLICATION = "application"
-    """アプリケーションロガー用"""
     EMERGENCY = "emergency"
-    """エマージェンシーロガー用"""
 
 
 class ConfFile:

@@ -10,7 +10,7 @@ from rest_framework.viewsets import ModelViewSet, ViewSet
 from application.models.user import User
 from application.serializers import LoginSerializer, UserSerializer
 from application.utils.get_client_ip import get_client_ip
-from application.utils.logs import ConfFile, LoggerName
+from application.utils.logs import LoggerName
 
 
 class UserViewSet(ModelViewSet):
@@ -49,7 +49,7 @@ class LoginViewSet(ViewSet):
         else:
             login(request, user)
             self.application_logger.info(
-                f"ログイン成功: {user}, IP: {get_client_ip(request)}"
+                f"ログイン成功: {user}, {serializer.data.get('employee_number')}, IP: {get_client_ip(request)}"
             )
             return JsonResponse(data={"role": user.Role(user.role).name})
 
