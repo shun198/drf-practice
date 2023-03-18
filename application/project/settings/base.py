@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 
+from .environment import django_settings
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECRET_KEYを.envから取得
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = django_settings.SECRET_KEY
 
 # ALLOWED_HOSTSを.envから取得
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split()
+ALLOWED_HOSTS = django_settings.ALLOWED_HOSTS.split()
 
 # Application definition
 
@@ -85,11 +87,11 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         # コンテナ内の環境変数をDATABASESのパラメータに反映
-        "NAME": os.environ.get("MYSQL_DATABASE"),
-        "USER": os.environ.get("MYSQL_USER"),
-        "PASSWORD": os.environ.get("MYSQL_PASSWORD"),
-        "HOST": os.environ.get("MYSQL_HOST", "db"),
-        "PORT": os.environ.get("MYSQL_PORT", 3306),
+        "NAME": django_settings.MYSQL_DATABASE,
+        "USER": django_settings.MYSQL_USER,
+        "PASSWORD": django_settings.MYSQL_PASSWORD,
+        "HOST": django_settings.MYSQL_HOST,
+        "PORT": django_settings.MYSQL_PORT,
     }
 }
 
