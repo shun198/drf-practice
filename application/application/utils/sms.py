@@ -12,7 +12,7 @@ from logging import Logger, getLogger
 from botocore.exceptions import ClientError
 from injector import inject
 
-from application.application.utils.logs import LoggerName
+from application.utils.logs import LoggerName
 
 application_logger: Logger = getLogger(LoggerName.APPLICATION.value)
 emergency_logger: Logger = getLogger(LoggerName.EMERGENCY.value)

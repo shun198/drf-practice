@@ -7,9 +7,7 @@ from .base import *
 
 DEBUG = True
 
-REST_FRAMEWORK.update(
-    {"DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"}
-)
+REST_FRAMEWORK.update({"DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"})
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "プロジェクト名",
