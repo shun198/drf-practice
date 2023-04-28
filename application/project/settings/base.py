@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 
+from kombu.utils.url import safequote
+
 from .environment import django_settings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -140,3 +142,23 @@ AUTH_USER_MODEL = "application.User"
 
 MEDIA_URL = "/upload/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "upload")
+
+
+AWS_ACCESS_KEY_ID = safequote("localstack")
+AWS_SECRET_ACCESS_KEY = safequote("localstack")
+
+CELERY_BROKER_URL = (
+    f"sqs://{AWS_ACCESS_KEY_ID}:{AWS_SECRET_ACCESS_KEY}@localstack:4566"
+)
+
+CELERY_TIMEZONE = "Japan"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 60
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+
+BROKER_TRANSPORT_OPTIONS = {
+    "region": "ap-northeast-1",
+    "visibility_timeout": 3600,
+    "polling_interval": 60,
+}

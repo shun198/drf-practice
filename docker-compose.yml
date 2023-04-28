@@ -51,15 +51,44 @@ services:
     ports:
       - "1080:1080"
       - "1025:1025"
+
+  celery:
+    container_name: celery
+    build:
+      context: .
+      dockerfile: containers/django/Dockerfile
+    volumes:
+      - ./application:/code
+    env_file:
+      - .env
+    command: poetry run celery -A application worker -l info
+    depends_on:
+      - app
+      - localstack
+
+  celery-beat:
+    container_name: celery-beat
+    build:
+      context: .
+      dockerfile: containers/django/Dockerfile
+    volumes:
+      - ./application:/code
+    env_file:
+      - .env
+    command: poetry run celery -A application beat -l info
+    depends_on:
+      - app
+      - localstack
+
   localstack:
     image: localstack/localstack
     container_name: localstack
     ports:
       - "4566:4566"
     environment:
-      - AWS_ACCESS_KEY_ID
-      - AWS_SECRET_ACCESS_KEY
-      - AWS_PROFILE
+      - AWS_ACCESS_KEY_ID=localstack
+      - AWS_SECRET_ACCESS_KEY=localstack
+      - DEBUG=1
 volumes:
   db_data:
   static:
