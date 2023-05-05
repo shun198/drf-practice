@@ -19,6 +19,6 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     "print_task": {
         "task": "application.tasks.print_task",
-        "schedule": crontab(minute="*/1"),
+        "schedule": crontab(hour="*/1"),
     },
 }
