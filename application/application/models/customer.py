@@ -16,8 +16,7 @@ class Customer(models.Model):
         validators=[RegexValidator(r"^[0-9]{11}$", "11桁の数字を入力してください。")],
         blank=True,
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    address = models.OneToOneField("Address", on_delete=models.CASCADE)
 
     class Meta:
         db_table = "Customer"
@@ -26,4 +25,25 @@ class Customer(models.Model):
 class CustomerPhoto(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     customer = models.ForeignKey("Customer", on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to="customer_photo", storage=CustomerStorage())
+    photo = models.ImageField(
+        upload_to="customer_photo", storage=CustomerStorage()
+    )
+
+    class Meta:
+        db_table = "CustomerPhoto"
+
+
+class Address(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    prefecture = models.CharField(max_length=255, null=True)
+    municipalities = models.CharField(max_length=255, null=True)
+    house_no = models.CharField(max_length=255, null=True)
+    other = models.CharField(max_length=255, null=True)
+    post_no = models.CharField(
+        max_length=7,
+        validators=[RegexValidator(r"^[0-9]{7}$", "7桁の数字を入力してください。")],
+        null=True,
+    )
+
+    class Meta:
+        db_table = "Address"
