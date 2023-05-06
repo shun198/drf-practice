@@ -8,7 +8,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet, ViewSet
 
 from application.models.user import User
-from application.serializers import LoginSerializer, UserSerializer
+from application.serializers.user import LoginSerializer, UserSerializer
 from application.utils.get_client_ip import get_client_ip
 from application.utils.logs import LoggerName
 
@@ -41,9 +41,7 @@ class LoginViewSet(ViewSet):
                 f"ログイン失敗:{serializer.data.get('employee_number')}, IP: {get_client_ip(request)}"
             )
             return JsonResponse(
-                data={
-                    "msg": "either employee number or password is incorrect"
-                },
+                data={"msg": "either employee number or password is incorrect"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         else:

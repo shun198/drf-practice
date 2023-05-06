@@ -1,10 +1,11 @@
 from rest_framework import serializers
 
-from .models import User
+from application.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
     """ユーザ用シリアライザ"""
+
     class Meta:
         model = User
         fields = ["id", "employee_number", "username", "email", "role"]
@@ -13,6 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class LoginSerializer(serializers.ModelSerializer):
     """ログイン用シリアライザ"""
+
     employee_number = serializers.CharField(max_length=255)
 
     class Meta:
@@ -22,11 +24,5 @@ class LoginSerializer(serializers.ModelSerializer):
 
 class EmailSerializer(serializers.Serializer):
     """Email用シリアライザ"""
+
     email = serializers.EmailField(max_length=255)
-
-
-class SmsSerializer(serializers.Serializer):
-    """SMS用シリアライザ"""
-    phone_no = serializers.CharField(max_length=11)
-    message = serializers.CharField(max_length=255)
-

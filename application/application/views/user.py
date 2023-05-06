@@ -11,7 +11,7 @@ from application.permissions import (
     IsPartTimeUser,
     IsSuperUser,
 )
-from application.serializers import EmailSerializer, UserSerializer
+from application.serializers.user import EmailSerializer, UserSerializer
 
 
 class UserViewSet(ModelViewSet):

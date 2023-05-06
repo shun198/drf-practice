@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
 from application.injectors import injector
-from application.serializers import SmsSerializer
+from application.serializers.sms import SmsSerializer
 from application.utils.sms import SnsWrapper
 
 
@@ -46,7 +46,9 @@ class SmsViewSet(ViewSet):
         """SMSの送信処理"""
         serializer = self.serializer_class(data=request.data)
         if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST
+            )
         sms = injector.get(SnsWrapper)
         message_id = sms.publish_text_message(
             "+81" + serializer.validated_data["phone_number"],
