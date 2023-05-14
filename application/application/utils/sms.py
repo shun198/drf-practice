@@ -53,7 +53,9 @@ class SnsWrapper:
             message_id = response["MessageId"]
             application_logger.info("Published message to %s.", phone_number)
         except ClientError:
-            emergency_logger.exception("Couldn't publish message to %s.", phone_number)
+            emergency_logger.exception(
+                "Couldn't publish message to %s.", phone_number
+            )
             raise
         else:
             return message_id

@@ -41,7 +41,9 @@ class LoginViewSet(ViewSet):
                 f"ログイン失敗:{serializer.data.get('employee_number')}, IP: {get_client_ip(request)}"
             )
             return JsonResponse(
-                data={"msg": "either employee number or password is incorrect"},
+                data={
+                    "msg": "either employee number or password is incorrect"
+                },
                 status=status.HTTP_400_BAD_REQUEST,
             )
         else:
