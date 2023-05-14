@@ -1,4 +1,3 @@
-"""ユーザー生成用モジュール"""
 from datetime import datetime, timedelta
 
 from factory import Faker, PostGenerationMethodCall, Sequence
