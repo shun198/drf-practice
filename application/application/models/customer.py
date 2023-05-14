@@ -51,9 +51,9 @@ class Address(models.Model):
     municipalities = models.CharField(max_length=255, null=True)
     """市区町村"""
     house_no = models.CharField(max_length=255, null=True)
-    """市区町村"""
-    other = models.CharField(max_length=255, null=True)
     """丁・番地"""
+    other = models.CharField(max_length=255, null=True)
+    """その他(マンション名など)"""
     post_no = models.CharField(
         max_length=7,
         validators=[RegexValidator(r"^[0-9]{7}$", "7桁の数字を入力してください。")],
