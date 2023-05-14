@@ -1,6 +1,3 @@
-import pytest
-
-
 def login(client, login_authority):
     """ログイン処理
     Args:

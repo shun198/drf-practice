@@ -1,13 +1,9 @@
 from rest_framework import status
-from rest_framework.test import APIClient
 
 
-class TestHealthCheck:
-    client = APIClient()
+def test_health_check_returns_200(client):
+    """ヘルスチェックで200を返すことをテスト"""
     url = "/api/health/"
-
-    def test_health_check_returns_200(self):
-        """ヘルスチェックで200を返すことをテスト"""
-        response = self.client.get(self.url, format="json")
-        assert response.status_code == status.HTTP_200_OK
-        assert response.json() == {"msg": "pass"}
+    response = client.get(url, format="json")
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == {"msg": "pass"}

@@ -1,5 +1,6 @@
 import pytest
 from django.core.management import call_command
+from rest_framework.test import APIClient
 
 
 @pytest.fixture(scope="session")
@@ -37,3 +38,8 @@ def email_data():
     return {
         "email": "test_user_01@test.com",
     }
+
+
+@pytest.fixture
+def client(scope="session"):
+    return APIClient()
