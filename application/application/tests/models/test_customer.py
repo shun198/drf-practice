@@ -1,9 +1,11 @@
-import pytest
 from datetime import datetime, timedelta
-from django.db.utils import DataError, IntegrityError
+
+import pytest
 from django.core.exceptions import ValidationError
-from application.models import User, Customer, Address
-from application.tests.factories.customer import CustomerFactory, AddressFactory
+from django.db.utils import DataError, IntegrityError
+
+from application.models import Address, Customer
+from application.tests.factories.customer import AddressFactory, CustomerFactory
 
 
 def get_customer(id):
