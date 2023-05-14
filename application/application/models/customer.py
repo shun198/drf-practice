@@ -22,7 +22,11 @@ class Customer(models.Model):
         blank=True,
     )
     """電話番号"""
-    address = models.OneToOneField("Address", on_delete=models.CASCADE)
+    address = models.ForeignKey(
+        "Address",
+        on_delete=models.CASCADE,
+        related_name="address",
+    )
     """住所"""
 
     class Meta:
