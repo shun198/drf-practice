@@ -11,9 +11,9 @@ class UserFactory(DjangoModelFactory):
         model = User
 
     username = Sequence(lambda n: "テスト利用者{}".format(n))
-    employee_number = Sequence(lambda n: "{0:08}".format(n + 100))
+    employee_number = "11111111"
     password = PostGenerationMethodCall("set_password", "test")
-    email = "test@com"
+    email = "test@example.com"
     role = User.Role.GENERAL
     created_at = Faker(
         "date_between_dates",

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from application.models import Customer
+from application.models import Address, Customer
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -19,3 +19,9 @@ class CustomerSerializer(serializers.ModelSerializer):
             + address.other
         )
         return ret
+
+
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = "__all__"
