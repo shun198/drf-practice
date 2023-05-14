@@ -1,8 +1,7 @@
 """ユーザー生成用モジュール"""
 from datetime import datetime, timedelta
 
-from factory import Faker, Sequence
-from factory import PostGenerationMethodCall, Sequence
+from factory import Faker, PostGenerationMethodCall, Sequence
 from factory.django import DjangoModelFactory
 
 from application.models import User
