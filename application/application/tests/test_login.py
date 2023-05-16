@@ -77,3 +77,45 @@ class TestLogoutUser:
         """ログインしていなくても200を返すことをテスト"""
         response = self.client.post(self.url, login_management, format="json")
         assert response.status_code == status.HTTP_200_OK
+
+
+@pytest.fixture
+def get_login_url():
+    return "/api/login/"
+
+
+@pytest.mark.django_db
+def test_management_user_can_login(client, login_management, get_login_url):
+    """管理者ユーザで正常にログインできることをテスト"""
+    response = client.post(get_login_url, login_management, format="json")
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == {"role": "MANAGEMENT"}
+
+
+@pytest.mark.django_db
+def test_general_user_can_login(client, login_general, get_login_url):
+    """一般ユーザで正常にログインできることをテスト"""
+    response = client.post(get_login_url, login_general, format="json")
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == {"role": "MANAGEMENT"}
+
+
+@pytest.mark.django_db
+def test_part_time_user_can_login(client, login_part_time, get_login_url):
+    """アルバイトユーザで正常にログインできることをテスト"""
+    response = client.post(get_login_url, login_part_time, format="json")
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == {"role": "PART_TIME"}
+
+
+@pytest.mark.django_db
+def test_user_cannot_login_with_incorrect_password(
+    client, login_management, get_login_url
+):
+    """間違ったパスワードでログインできないことをテスト"""
+    login_management["password"] = "test6789"
+    response = client.post(get_login_url, login_management, format="json")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    assert response.json() == {
+        "msg": "either employee number or password is incorrect"
+    }
