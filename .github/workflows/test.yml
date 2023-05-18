@@ -5,7 +5,7 @@ on:
 
 env:
   SECRET_KEY: test
-  DJANGO_SETTINGS_MODULE: project.settings.dev
+  DJANGO_SETTINGS_MODULE: project.settings.local
   ALLOWED_HOSTS: 127.0.0.1
   MYSQL_ROOT_PASSWORD: root
   MYSQL_DATABASE: test-db
@@ -67,4 +67,3 @@ jobs:
         with:
           pytest-coverage-path: application/pytest-coverage.txt
           junitxml-path: application/pytest.xml
-

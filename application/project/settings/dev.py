@@ -4,38 +4,26 @@ from logging.config import dictConfig
 from application.utils.logs import ConfFile
 
 from .base import *
+from .environment import aws_settings
 
-DEBUG = True
-
-REST_FRAMEWORK.update(
-    {"DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"}
-)
-
-SPECTACULAR_SETTINGS = {
-    "TITLE": "プロジェクト名",
-    "DESCRIPTION": "詳細",
-    "VERSION": "1.0.0",
-}
+DEBUG = False
+ROOT_URLCONF = "project.urls.base"
 
 INSTALLED_APPS += [
-    "debug_toolbar",
-    "drf_spectacular",
+    "django_ses",
+    "storages",
 ]
 
-MIDDLEWARE += [
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
-]
 
-ROOT_URLCONF = "project.urls.dev"
-
-# Djangoのメールの設定
-EMAIL_HOST = "mail"
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
-# SMTPの1025番ポートを指定
-EMAIL_PORT = 1025
-# 送信中の文章の暗号化をFalseにします
-EMAIL_USE_TLS = False
+# SESの設定
+EMAIL_BACKEND = "django_ses.SESBackend"
+AWS_SES_REGION_NAME = aws_settings.AWS_SES_REGION_NAME
+AWS_SES_REGION_ENDPOINT = aws_settings.AWS_SES_REGION_ENDPOINT
+DEFAULT_FROM_EMAIL = aws_settings.DEFAULT_FROM_EMAIL
+# S3の設定
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3StaticStorage"
+AWS_STORAGE_BUCKET_NAME = aws_settings.AWS_STORAGE_BUCKET_NAME
 
 # ログ設定
 output_path = Path("output")

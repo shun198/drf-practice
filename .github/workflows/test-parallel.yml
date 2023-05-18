@@ -6,7 +6,7 @@ on:
 env:
   WORKING_DIRECTORY: application
   SECRET_KEY: test
-  DJANGO_SETTINGS_MODULE: project.settings.dev
+  DJANGO_SETTINGS_MODULE: project.settings.local
   ALLOWED_HOSTS: 127.0.0.1
   MYSQL_ROOT_PASSWORD: root
   MYSQL_DATABASE: test-db
@@ -55,4 +55,3 @@ jobs:
           working-directory: ${{ env.WORKING_DIRECTORY }}
       - name: Run Pytest
         run: poetry run pytest application/tests/${{ matrix.test-path }} -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code
-
