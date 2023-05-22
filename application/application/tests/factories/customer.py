@@ -10,11 +10,15 @@ class AddressFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Address
 
-    prefecture = "京都府"
-    municipalities = "京都市東山区"
-    house_no = "清水"
-    other = "1-294"
-    post_no = factory.Sequence(lambda n: "{0:07}".format(n + 100))
+    prefecture = Faker("administrative_unit", locale="ja_JP")
+    municipalities = Faker("city", locale="ja_JP")
+    house_no = str(Faker("ban", locale="ja_JP")) + str(
+        Faker("gou", locale="ja_JP")
+    )
+    other = str(Faker("building_name", locale="ja_JP")) + str(
+        Faker("building_number", locale="ja_JP")
+    )
+    post_no = Faker("random_number", digits=7)
 
 
 class CustomerFactory(factory.django.DjangoModelFactory):

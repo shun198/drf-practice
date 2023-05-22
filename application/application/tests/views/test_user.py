@@ -1,5 +1,4 @@
 import pytest
-
 from rest_framework import status
 
 from application.tests.common_method import login
@@ -16,7 +15,9 @@ def get_user_details_url(id):
 
 
 @pytest.mark.django_db
-def test_management_user_can_list_users(client, login_management, get_user_url):
+def test_management_user_can_list_users(
+    client, login_management, get_user_url
+):
     """管理者ユーザでユーザの一覧を表示できるテスト"""
     login(client, login_management)
     response = client.get(get_user_url, format="json")

@@ -13,8 +13,12 @@ class UserFactory(DjangoModelFactory):
     username = Sequence(lambda n: "テスト利用者{}".format(n))
     employee_number = "11111111"
     password = PostGenerationMethodCall("set_password", "test")
-    email = "test@example.com"
-    role = User.Role.GENERAL
+    email = Faker("email")
+    role = Faker(
+        "random_int",
+        min=0,
+        max=2,
+    )
     created_at = Faker(
         "date_between_dates",
         date_start=(datetime.now() - timedelta(days=20)).date(),
