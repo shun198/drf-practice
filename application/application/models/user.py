@@ -6,8 +6,9 @@ from django.core.validators import RegexValidator
 from django.db import models
 
 
-# カスタムユーザクラスを定義
 class User(AbstractUser):
+    """システムユーザ"""
+
     username_validator = UnicodeUsernameValidator()
 
     class Role(models.IntegerChoices):

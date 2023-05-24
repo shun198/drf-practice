@@ -47,19 +47,19 @@ def client(scope="session"):
     return APIClient()
 
 
-# @given("APIClientを生成", target_fixture="client")
-# def client(db):
-#     return APIClient()
+@given("APIClientを生成", target_fixture="client")
+def client(db):
+    return APIClient()
 
 
-# @then("レスポンスのステータスが200")
-# def response_status_code_200(response):
-#     assert response.status_code == status.HTTP_200_OK
+@then("レスポンスのステータスが200")
+def response_status_code_200(response):
+    assert response.status_code == status.HTTP_200_OK
 
 
-# @when("GET通信を実施", target_fixture="response")
-# def get(client, url):
-#     return client.get(url, format="json")
+@when("GET通信を実施", target_fixture="response")
+def get(client, url):
+    return client.get(url, format="json")
 
 
 @when("POST通信を実施", target_fixture="response")
@@ -77,6 +77,6 @@ def delete(client, url, data):
     return client.delete(url, data=data, format="json")
 
 
-# @then("期待通りのJSONが返却されていること")
-# def json(response, expected):
-#     assert response.json() == expected
+@then("期待通りのJSONが返却されていること")
+def json(response, expected):
+    assert response.json() == expected
