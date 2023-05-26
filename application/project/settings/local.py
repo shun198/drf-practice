@@ -2,6 +2,7 @@
 from logging.config import dictConfig
 
 from application.utils.logs import ConfFile
+from application.injectors import LocalModule, injector
 
 from .base import *
 
@@ -36,6 +37,9 @@ EMAIL_HOST_PASSWORD = ""
 EMAIL_PORT = 1025
 # 送信中の文章の暗号化をFalseにします
 EMAIL_USE_TLS = False
+
+# DI設定
+injector.binder.install(LocalModule())
 
 # ログ設定
 output_path = Path("output")

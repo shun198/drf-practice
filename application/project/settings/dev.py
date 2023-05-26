@@ -2,6 +2,7 @@
 from logging.config import dictConfig
 
 from application.utils.logs import ConfFile
+from application.injectors import DevModule, injector
 
 from .base import *
 from .environment import aws_settings
@@ -26,7 +27,7 @@ STATICFILES_STORAGE = "storages.backends.s3boto3.S3StaticStorage"
 AWS_STORAGE_BUCKET_NAME = aws_settings.AWS_STORAGE_BUCKET_NAME
 
 # ログ設定
-output_path = Path("output")
-if not output_path.exists():
-    output_path.mkdir()
 dictConfig(ConfFile.get()["dev"]["logging"])
+
+# DI設定
+injector.binder.install(DevModule())

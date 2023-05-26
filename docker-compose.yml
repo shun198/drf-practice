@@ -86,9 +86,16 @@ services:
     ports:
       - "4566:4566"
     environment:
+      - SERVICES=sns
       - AWS_ACCESS_KEY_ID=localstack
       - AWS_SECRET_ACCESS_KEY=localstack
       - DEBUG=1
+    volumes:
+      - localstack_data:/tmp/localstack/data
+      - localstack_bin:/var/lib/localstack
+
 volumes:
   db_data:
   static:
+  localstack_data:
+  localstack_bin:
