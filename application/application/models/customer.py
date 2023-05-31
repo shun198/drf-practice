@@ -63,3 +63,18 @@ class Address(models.Model):
 
     class Meta:
         db_table = "Address"
+
+
+class PurchaseInfo(models.Model):
+    """購入履歴"""
+    
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    product_name = models.CharField(max_length=255)
+    """商品名"""
+    count = models.SmallIntegerField(default=0)
+    """個数"""
+    created_at = models.DateTimeField(auto_now_add=True)
+    """作成日"""
+    
+    class Meta:
+        db_table = "PurchaseInfo"
