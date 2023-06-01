@@ -1,5 +1,4 @@
 CONTAINER_NAME = app
-PROJECT = test-proj
 RUN_APP = docker-compose exec $(CONTAINER_NAME)
 RUN_POETRY =  $(RUN_APP) poetry run
 RUN_DJANGO = $(RUN_POETRY) python manage.py
