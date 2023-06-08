@@ -38,14 +38,19 @@ jobs:
     steps:
       - name: Chekcout code
         uses: actions/checkout@v3
-      - name: Setup Python
+      - name: Install packages for pycurl
+        run: sudo apt-get install libssl-dev libcurl4-openssl-dev python-dev
+      - name: Install poetry
+        run: pipx install poetry
+      - name: Use cache dependencies
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      - name: Install pdoc
-        run: pip install pdoc
+          cache: 'poetry'
+      - name: Install Packages
+        run: poetry install
       - name: Create documentation
-        run: pdoc -o docs application
+        run: poetry run pdoc -o docs application
       - name: upload documents
         uses: actions/upload-pages-artifact@v1
         with:
