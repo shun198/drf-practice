@@ -45,7 +45,7 @@ jobs:
       - name: Install pdoc
         run: pip install pdoc
       - name: Create documentation
-        run: pdoc -o docs crm
+        run: pdoc -o docs application
       - name: upload documents
         uses: actions/upload-pages-artifact@v1
         with:
