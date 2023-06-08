@@ -11,15 +11,9 @@ permissions:
   contents: read
 
 env:
-  WORKING_DIRECTORY: application
-  DJANGO_SECRET_KEY: test
-  DJANGO_SETTINGS_MODULE: project.settings
-  DJANGO_ALLOWED_HOSTS: 127.0.0.1
-  DEBUG_FLAG: 'True'
-  MAIL_TOKEN_ISSUER: test
-  MAIL_TOKEN_AUDIENCE: test
-  TRUSTED_ORIGINS: http://localhost
-  CRM_BASE_URL: http://localhost
+  SECRET_KEY: test
+  DJANGO_SETTINGS_MODULE: project.settings.local
+  ALLOWED_HOSTS: 127.0.0.1
   MYSQL_ROOT_PASSWORD: root
   MYSQL_DATABASE: test-db
   MYSQL_HOST: 127.0.0.1
@@ -34,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ env.WORKING_DIRECTORY }}
+        working-directory: application
     steps:
       - name: Chekcout code
         uses: actions/checkout@v3
