@@ -13,6 +13,11 @@ runs:
   # compositeが必須
   using: 'composite'
   steps:
+    # https://stackoverflow.com/questions/23937933/could-not-run-curl-config-errno-2-no-such-file-or-directory-when-installing
+    # pycurl用のパッケージをインストール
+    - name: Install packages for pycurl
+      run: sudo apt-get install libssl-dev libcurl4-openssl-dev python-dev
+      shell: bash
     - name: Install poetry
       run: pipx install poetry
       shell: bash
