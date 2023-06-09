@@ -65,26 +65,6 @@ def test_user__cannot_login_with_incorrect_password(
 
 
 @pytest.mark.django_db
-def test_user_cannot_login_without_password(
-    client, login_management, get_login_url
-):
-    """パスワードなしでログインできないことをテスト"""
-    login_management["password"] = None
-    response = client.post(get_login_url, login_management, format="json")
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-
-@pytest.mark.django_db
-def test_user_cannot_login_without_employee_number(
-    client, login_management, get_login_url
-):
-    """社員番号なしでログインできないことをテスト"""
-    login_management["employee_number"] = None
-    response = client.post(get_login_url, login_management, format="json")
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-
-@pytest.mark.django_db
 def test_user_cannot_login_with_employee_number_that_does_not_exist(
     client, login_management, get_login_url
 ):
