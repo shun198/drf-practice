@@ -68,3 +68,5 @@ update:
 db:
 	docker exec -it db bash
 
+pdoc:
+	$(RUN_APP) env CI_MAKING_DOCS=1 poetry run pdoc -o docs application
