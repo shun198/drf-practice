@@ -32,8 +32,8 @@ jobs:
     steps:
       - name: Chekcout code
         uses: actions/checkout@v3
-      # - name: Install packages for pycurl
-      #   run: sudo apt-get install libssl-dev libcurl4-openssl-dev python-dev
+      - name: Install packages for pycurl
+        run: sudo apt-get install libssl-dev libcurl4-openssl-dev python-dev-is-python3
       - name: Install poetry
         run: pipx install poetry
       - name: Use cache dependencies
@@ -45,10 +45,12 @@ jobs:
         run: poetry install
       - name: Create documentation
         run: poetry run pdoc -o docs application
-      - name: upload documents
-        uses: actions/upload-pages-artifact@v1
+      - name: Upload Documents
+        uses: actions/upload-artifact@v3
         with:
-          path: docs/
+          name: docs
+          # 絶対パスを指定
+          path: application/docs/
 
   # Deploy the artifact to GitHub pages.
   # This is a separate job so that only actions/deploy-pages has the necessary permissions.
