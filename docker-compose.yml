@@ -99,3 +99,7 @@ volumes:
   static:
   localstack_data:
   localstack_bin:
+
+networks:
+  default:
+    name: testnet
