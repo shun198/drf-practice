@@ -52,7 +52,7 @@ def test_user_cannot_login_with_incorrect_password(
 
 
 @pytest.mark.django_db
-def test_user__cannot_login_with_incorrect_password(
+def test_user_cannot_login_with_incorrect_password(
     client, login_management, get_login_url
 ):
     """間違ったパスワードでログインできないことをテスト"""
