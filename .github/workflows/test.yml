@@ -5,6 +5,12 @@ on:
 
 env:
   WORKING_DIRECTORY: application
+  MYSQL_ROOT_PASSWORD: root
+  MYSQL_DATABASE: test-db
+  MYSQL_HOST: 127.0.0.1
+  MYSQL_PORT: 3306
+  MYSQL_USER: test
+  MYSQL_PASSWORD: test
 
 jobs:
   Setup:
@@ -23,10 +29,10 @@ jobs:
         ports:
           - 3306:3306
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test-db
-          MYSQL_USER: test
-          MYSQL_PASSWORD: test
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ env.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
         options: >-
           --health-cmd "mysqladmin ping"
           --health-interval 10s
