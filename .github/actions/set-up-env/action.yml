@@ -1,0 +1,17 @@
+name: 'Setup Environment Variables'
+
+description: 'Setup Environment Variables for Django Project'
+
+inputs:
+  env-directory:
+    description: 'working-directory of env file'
+    required: false
+    default: .env.test
+
+runs:
+  # compositeが必須
+  using: 'composite'
+  steps:
+    - name: Add Environment Variables
+      run: sed "" ${{ inputs.env-directory }} >> $GITHUB_ENV
+      shell: bash

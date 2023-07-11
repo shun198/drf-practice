@@ -11,15 +11,7 @@ permissions:
   contents: read
 
 env:
-  SECRET_KEY: test
-  DJANGO_SETTINGS_MODULE: project.settings.local
-  ALLOWED_HOSTS: 127.0.0.1
-  MYSQL_ROOT_PASSWORD: root
-  MYSQL_DATABASE: test-db
-  MYSQL_HOST: 127.0.0.1
-  MYSQL_PORT: 3306
-  MYSQL_USER: test
-  MYSQL_PASSWORD: test
+  WORKING_DIRECTORY: application
   CI_MAKING_DOCS: 1
 
 jobs:
@@ -28,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: application
+        working-directory: ${{ env.WORKING_DIRECTORY }}
     steps:
       - name: Chekcout code
         uses: actions/checkout@v3
@@ -44,13 +36,13 @@ jobs:
       - name: Install Packages
         run: poetry install
       - name: Create documentation
-        run: poetry run pdoc -o docs application
+        run: poetry run pdoc -o docs ${{ env.WORKING_DIRECTORY }}
       - name: Upload Documents
         uses: actions/upload-artifact@v3
         with:
           name: docs
           # 絶対パスを指定
-          path: application/docs/
+          path: ${{ env.WORKING_DIRECTORY }}/docs/
 
   # Deploy the artifact to GitHub pages.
   # This is a separate job so that only actions/deploy-pages has the necessary permissions.
