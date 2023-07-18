@@ -13,13 +13,17 @@ runs:
   # compositeが必須
   using: 'composite'
   steps:
+    - name: Install packages for pycurl
+      run: sudo apt-get install libssl-dev libcurl4-openssl-dev python-dev-is-python3
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
     - name: Install poetry
       run: pipx install poetry
       shell: bash
     - name: Use cache dependencies
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
+        python-version: '3.11'
         cache: 'poetry'
     - name: Install Packages
       run: poetry install

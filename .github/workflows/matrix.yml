@@ -6,7 +6,7 @@ env:
   SECRET_KEY: test
   DJANGO_SETTINGS_MODULE: project.settings
   ALLOWED_HOSTS: 127.0.0.1
-  DEBUG: "True"
+  DEBUG: 'True'
   MYSQL_ROOT_PASSWORD: root
   MYSQL_DATABASE: test-db
   MYSQL_HOST: 127.0.0.1
@@ -20,7 +20,7 @@ jobs:
     # 実行したいバッケージ等のバージョンを配列内にstrategyとmatrixに指定
     strategy:
       matrix:
-        python-version: [3.10.5, 3.10.6, 3.10.7]
+        python-version: [3.11.2, 3.11.3, 3.11.4]
         os: [ubuntu-latest, ubuntu-20.04]
     runs-on: ${{ matrix.os }}
     defaults:
@@ -61,5 +61,3 @@ jobs:
           poetry run python manage.py migrate
       - name: Run Pytest
         run: poetry run pytest -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code
-
-
