@@ -22,7 +22,7 @@ class AwsSettings(BaseSettings):
     ENDPOINT_URL: str = "http://localstack:4566"
     AWS_DEFAULT_REGION: str = "ap-northeast-1"
     AWS_STORAGE_BUCKET_NAME: str = "localstack"
-    DEFAULT_FROM_EMAIL: str
+    DEFAULT_FROM_EMAIL: str = "example.com"
     AWS_PROFILE: str = "localstack"
 
 
