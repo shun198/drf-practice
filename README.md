@@ -117,12 +117,14 @@
 .env ファイルを以下の環境変数例と[環境変数の一覧](#環境変数の一覧)を元に作成
 
 ```.env
-POSTGRES_NAME=postgres
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_HOST=db
-POSTGRES_PORT=5432
+MYSQL_ROOT_PASSWORD=root
+MYSQL_DATABASE=django-db
+MYSQL_USER=django
+MYSQL_PASSWORD=django
+MYSQL_HOST=db
+MYSQL_PORT=3306
 SECRET_KEY=django
+ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
 DJANGO_SETTINGS_MODULE=project.settings.local
 ```
 
@@ -147,18 +149,19 @@ make down
 
 ### 環境変数の一覧
 
-| 変数名                 | 役割                                       | デフォルト値                       | DEV 環境での値                           |
-| ---------------------- | ------------------------------------------ | ---------------------------------- | ---------------------------------------- |
-| POSTGRES_NAME          | Postgres のデータベース名（Docker で使用） | postgres                           |                                          |
-| POSTGRES_USER          | Postgres のユーザ名（Docker で使用）       | postgres                           |                                          |
-| POSTGRES_PASSWORD      | Postgres のパスワード（Docker で使用）     | postgres                           |                                          |
-| POSTGRES_HOST          | Postgres のホスト名（Docker で使用）       | db                                 |                                          |
-| POSTGRES_PORT          | Postgres のポート番号（Docker で使用）     | 5432                               |                                          |
-| SECRET_KEY             | Django のシークレットキー                  | secretkey                          | 他者に推測されないランダムな値にすること |
-| ALLOWED_HOSTS          | リクエストを許可するホスト名               | localhost 127.0.0.1 [::1] back web | フロントのホスト名                       |
-| DEBUG                  | デバッグモードの切り替え                   | True                               | False                                    |
-| TRUSTED_ORIGINS        | CORS で許可するオリジン                    | http://localhost                   |                                          |
-| DJANGO_SETTINGS_MODULE | Django アプリケーションの設定モジュール    | project.settings.local             | project.settings.dev                     |
+| 変数名                 | 役割                                      | デフォルト値                       | DEV 環境での値                           |
+| ---------------------- | ----------------------------------------- | ---------------------------------- | ---------------------------------------- |
+| MYSQL_ROOT_PASSWORD    | MySQL の root パスワード（Docker で使用） | django-db                          |                                          |
+| MYSQL_DATABASE         | MySQL のデータベース名（Docker で使用）   | django-db                          |                                          |
+| MYSQL_USER             | MySQL のユーザ名（Docker で使用）         | django                             |                                          |
+| MYSQL_PASSWORD         | MySQL のパスワード（Docker で使用）       | django                             |                                          |
+| MYSQL_HOST             | MySQL のホスト名（Docker で使用）         | db                                 |                                          |
+| MYSQL_PORT             | MySQL のポート番号（Docker で使用）       | 5432                               |                                          |
+| SECRET_KEY             | Django のシークレットキー                 | secretkey                          | 他者に推測されないランダムな値にすること |
+| ALLOWED_HOSTS          | リクエストを許可するホスト名              | localhost 127.0.0.1 [::1] back web | フロントのホスト名                       |
+| DEBUG                  | デバッグモードの切り替え                  | True                               | False                                    |
+| TRUSTED_ORIGINS        | CORS で許可するオリジン                   | http://localhost                   |                                          |
+| DJANGO_SETTINGS_MODULE | Django アプリケーションの設定モジュール   | project.settings.local             | project.settings.dev                     |
 
 ### コマンド一覧
 
