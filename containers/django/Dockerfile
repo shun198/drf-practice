@@ -11,4 +11,4 @@ RUN poetry install
 
 COPY ./containers/django/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
-RUN echo "test"
+
