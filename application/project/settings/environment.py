@@ -13,6 +13,7 @@ class DjangoSettings(BaseSettings):
     MYSQL_PASSWORD: str
     MYSQL_HOST: str = "db"
     MYSQL_PORT: int = 3306
+    TRUSTED_ORIGINS: str = "http://localhost"
 
 
 class AwsSettings(BaseSettings):
@@ -20,10 +21,9 @@ class AwsSettings(BaseSettings):
 
     AWS_REGION_NAME: str = "ap-northeast-1"
     ENDPOINT_URL: str = "http://localstack:4566"
-    AWS_DEFAULT_REGION_NAME: str = "ap-northeast-1"
-    AWS_SES_REGION_ENDPOINT: str = "ap-northeast-1"
+    AWS_DEFAULT_REGION: str = "ap-northeast-1"
     AWS_STORAGE_BUCKET_NAME: str = "localstack"
-    DEFAULT_FROM_EMAIL: str = "example@gmail.com"
+    DEFAULT_FROM_EMAIL: str = "example.com"
     AWS_PROFILE: str = "localstack"
 
 
