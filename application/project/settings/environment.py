@@ -13,7 +13,7 @@ class DjangoSettings(BaseSettings):
     MYSQL_PASSWORD: str
     MYSQL_HOST: str = "db"
     MYSQL_PORT: int = 3306
-    TRUSTED_ORIGINS: str = "localhost"
+    TRUSTED_ORIGINS: str = "http://localhost"
 
 
 class AwsSettings(BaseSettings):
