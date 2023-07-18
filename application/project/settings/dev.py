@@ -18,12 +18,7 @@ INSTALLED_APPS += [
 
 # SESの設定
 EMAIL_BACKEND = "django_ses.SESBackend"
-<<<<<<< HEAD
-AWS_DEFAULT_REGION_NAME = aws_settings.AWS_DEFAULT_REGION_NAME
-AWS_SES_REGION_ENDPOINT = aws_settings.AWS_SES_REGION_ENDPOINT
-=======
 AWS_SES_REGION_ENDPOINT = aws_settings.AWS_DEFAULT_REGION
->>>>>>> develop
 DEFAULT_FROM_EMAIL = aws_settings.DEFAULT_FROM_EMAIL
 # S3の設定
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
