@@ -13,6 +13,10 @@ runs:
   # compositeが必須
   using: 'composite'
   steps:
+    - name: Install packages for pycurl
+      run: sudo apt-get install libssl-dev libcurl4-openssl-dev python-dev-is-python3
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
     - name: Install poetry
       run: pipx install poetry
       shell: bash
