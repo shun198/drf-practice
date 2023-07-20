@@ -7,7 +7,7 @@ class DjangoSettings(BaseSettings):
     """Django関連の環境変数を設定するクラス"""
 
     SECRET_KEY: str = "test"
-    ALLOWED_HOSTS: str = "http://localhost"
+    ALLOWED_HOSTS: str = "127.0.0.1"
     MYSQL_DATABASE: str = "django"
     MYSQL_USER: str = "django"
     MYSQL_PASSWORD: str = "django"
