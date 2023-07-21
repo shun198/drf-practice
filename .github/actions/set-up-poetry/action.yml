@@ -18,7 +18,7 @@ runs:
     - name: Install packages for pycurl
       run: |
         sudo apt-get update
-        sudo apt-get install libssl-dev
+        sudo apt-get install libssl-dev libcurl4-openssl-dev python-dev-is-python3
       shell: bash
     - name: Install poetry
       run: pipx install poetry
@@ -32,9 +32,4 @@ runs:
       run: poetry install
       shell: bash
       working-directory: ${{ inputs.working-directory }}
-    - name: Execute Migration
-      run: |
-        poetry run python manage.py makemigrations
-        poetry run python manage.py migrate
-      shell: bash
-      working-directory: ${{ inputs.working-directory }}
+

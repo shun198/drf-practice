@@ -1,8 +1,8 @@
 """DEV環境用の設定"""
 from logging.config import dictConfig
 
-from application.utils.logs import ConfFile
 from application.injectors import DevModule, injector
+from application.utils.logs import ConfFile
 
 from .base import *
 from .environment import aws_settings

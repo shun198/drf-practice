@@ -4,7 +4,7 @@ from celery import Celery
 from celery.schedules import crontab
 
 """環境変数を設定"""
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings.dev")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings.local")
 
 """Celeryをdjango.conf:settingsに設定"""
 app = Celery("application")

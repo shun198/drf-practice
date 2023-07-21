@@ -1,6 +1,5 @@
 import os
 
-
 if os.environ.get("CI_MAKING_DOCS") is not None:
     # pdoc will not work with django unless you first call django.setup().
     # Unfortunately, calling that function in an __init__ file means that
