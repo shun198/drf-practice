@@ -1,8 +1,8 @@
 """LOCAL環境用の設定"""
 from logging.config import dictConfig
 
-from application.utils.logs import ConfFile
 from application.injectors import LocalModule, injector
+from application.utils.logs import ConfFile
 
 from .base import *
 
