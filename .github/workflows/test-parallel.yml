@@ -11,6 +11,7 @@ env:
   MYSQL_PORT: 3306
   MYSQL_USER: test
   MYSQL_PASSWORD: test
+  DJANGO_SETTINGS_MODULE: project.settings.local
 
 jobs:
   Test:
