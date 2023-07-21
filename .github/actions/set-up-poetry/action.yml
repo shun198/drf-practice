@@ -32,9 +32,4 @@ runs:
       run: poetry install
       shell: bash
       working-directory: ${{ inputs.working-directory }}
-    - name: Execute Migration
-      run: |
-        poetry run python manage.py makemigrations
-        poetry run python manage.py migrate
-      shell: bash
-      working-directory: ${{ inputs.working-directory }}
+
