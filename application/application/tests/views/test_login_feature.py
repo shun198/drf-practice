@@ -6,7 +6,7 @@ from application.models import User
 from application.tests.factories.user import UserFactory
 
 scenarios(
-    "./features/login.feature",
+    "../features/login.feature",
 )
 
 
