@@ -47,6 +47,10 @@ jobs:
         uses: ./.github/actions/set-up-poetry
         with:
           working-directory: ${{ env.WORKING_DIRECTORY }}
+      - name: Run migration
+        run: |
+          poetry run python manage.py makemigrations
+          poetry run python manage.py migrate
       - name: Run Pytest
         run: |
           set -o pipefail
