@@ -16,7 +16,9 @@ runs:
     # https://stackoverflow.com/questions/23937933/could-not-run-curl-config-errno-2-no-such-file-or-directory-when-installing
     # pycurl用のパッケージをインストール
     - name: Install packages for pycurl
-      run: sudo apt-get install libssl-dev
+      run: |
+        sudo apt-get update
+        sudo apt-get install libssl-dev
       shell: bash
     - name: Install poetry
       run: pipx install poetry
