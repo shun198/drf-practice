@@ -10,6 +10,7 @@ permissions:
 env:
   WORKING_DIRECTORY: application
   CI_MAKING_DOCS: 1
+  DJANGO_SETTINGS_MODULE: project.settings.local
 
 jobs:
   # Build the documentation and upload the static HTML files as an artifact.
