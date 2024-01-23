@@ -14,8 +14,7 @@
     "renovate"
   ],
   "schedule": [
-    "after 10pm and before 5am every weekday",
-    "every weekend"
+    "* 7 * * *"
   ],
   "lockFileMaintenance": {
     "enabled": true
