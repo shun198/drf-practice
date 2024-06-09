@@ -36,15 +36,18 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
+      # https://github.com/actions/checkout#fetch-all-history-for-all-tags-and-branches
       - name: Chekcout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idif
       - name: Check for model changes
         # https://www.ibm.com/docs/ja/aix/7.1?topic=g-grep-command#grep__row-d3e144113
         id: check_changes
         run: |
           MODEL_CHANGED=false
-          if git diff --name-only "origin/${{ github.base_ref }}" | grep -c ${{ env.WORKING_DIRECTORY }}/application/models/ > 0; then
+          if git diff --name-only origin/${{ github.base_ref }} | grep -c ${{ env.WORKING_DIRECTORY }}/application/models/ > 0; then
             echo $MODEL_CHANGED
             MODEL_CHANGED=true
           fi
