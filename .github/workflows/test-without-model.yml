@@ -44,7 +44,7 @@ jobs:
         run: |
           git fetch origin ${{ github.base_ref }}
           MODEL_CHANGED=false
-          if git diff --name-only origin/$BASE_BRANCH ${{ github.sha }} | grep -q "^${{ env.WORKING_DIRECTORY }}/application/models/"; then
+          if git diff --name-only origin/$BASE_BRANCH ${{ github.sha }} | grep -q "^${{ env.WORKING_DIRECTORY }}/models/"; then
             MODEL_CHANGED=true
           fi
           echo "MODEL_CHANGED=$MODEL_CHANGED" >> $GITHUB_ENV
@@ -54,10 +54,10 @@ jobs:
         uses: ./.github/actions/set-up-poetry
         with:
           working-directory: ${{ env.WORKING_DIRECTORY }}
-      # - name: Run migration
-      #   run: |
-      #     poetry run python manage.py makemigrations
-      #     poetry run python manage.py migrate
+      - name: Run migration
+        run: |
+          poetry run python manage.py makemigrations
+          poetry run python manage.py migrate
       - name: Run Pytest Without Model
         if: env.MODEL_CHANGED == 'true'
         run: |
