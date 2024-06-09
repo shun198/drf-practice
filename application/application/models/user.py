@@ -7,7 +7,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    """システムユーザModel"""
+    """システムユーザのModel"""
 
     username_validator = UnicodeUsernameValidator()
 

@@ -44,7 +44,7 @@ jobs:
         id: check_changes
         run: |
           MODEL_CHANGED=false
-          if git diff --name-only origin/${{ github.base_ref }} | grep -c ${{ env.WORKING_DIRECTORY }}/application/models/ > 0; then
+          if git diff --name-only ${{ github.base_ref }} | grep -c ${{ env.WORKING_DIRECTORY }}/application/models/ > 0; then
             echo $MODEL_CHANGED
             MODEL_CHANGED=true
           fi
