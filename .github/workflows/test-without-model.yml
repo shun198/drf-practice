@@ -43,8 +43,9 @@ jobs:
         id: check_changes
         run: |
           git fetch origin ${{ github.base_ref }}
+          printf ${{ github.base_ref }}
           MODEL_CHANGED=false
-          if git diff --name-only origin/$BASE_BRANCH ${{ github.sha }} | grep -q "^${{ env.WORKING_DIRECTORY }}/models/"; then
+          if git diff --name-only origin/${{ github.base_ref }} ${{ github.sha }} | grep -q "^${{ env.WORKING_DIRECTORY }}/models/"; then
             MODEL_CHANGED=true
           fi
           echo "MODEL_CHANGED=$MODEL_CHANGED" >> $GITHUB_ENV
@@ -55,16 +56,14 @@ jobs:
         with:
           working-directory: ${{ env.WORKING_DIRECTORY }}
       - name: Run migration
-        run: |
-          poetry run python manage.py makemigrations
-          poetry run python manage.py migrate
+        run: poetry run python manage.py migrate
       - name: Run Pytest Without Model
-        if: env.MODEL_CHANGED == 'true'
+        if: env.MODEL_CHANGED == 'false'
         run: |
           set -o pipefail
           poetry run pytest ${{ env.WORKING_DIRECTORY }}/tests/serializers ${{ env.WORKING_DIRECTORY }}/tests/views --junitxml=pytest.xml -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code | tee pytest-coverage.txt
       - name: Run Pytest
-        if: env.MODEL_CHANGED == 'false'
+        if: env.MODEL_CHANGED == 'true'
         run: |
           set -o pipefail
           poetry run pytest --junitxml=pytest.xml -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code | tee pytest-coverage.txt
