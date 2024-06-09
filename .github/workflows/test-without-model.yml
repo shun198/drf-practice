@@ -43,7 +43,7 @@ jobs:
         id: check_changes
         run: |
           MODEL_CHANGED=false
-          if git diff --name-only | grep application/application/models/; then
+          if git diff --name-only | grep -q application/application/models/; then
             MODEL_CHANGED=true
           fi
           echo "MODEL_CHANGED=$MODEL_CHANGED" >> $GITHUB_ENV
