@@ -45,10 +45,10 @@ jobs:
         run: |
           MODEL_CHANGED=false
           if git diff --name-only | grep -q application/application/models/; then
-            echo MODEL_CHANGED
+            echo $MODEL_CHANGED
             MODEL_CHANGED=true
           fi
-          echo MODEL_CHANGED
+          echo $MODEL_CHANGED
           echo "MODEL_CHANGED=$MODEL_CHANGED" >> $GITHUB_ENV
       - name: Grant privileges to user
         run: mysql --protocol=tcp -h 127.0.0.1 -P 3306 -u root -p$MYSQL_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'%'; FLUSH PRIVILEGES;"
