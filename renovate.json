@@ -1,0 +1,39 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "timezone": "Asia/Tokyo",
+  "assignees": [
+    "shun198"
+  ],
+  "reviewers": [
+    "shun198"
+  ],
+  "addLabels": [
+    "renovate"
+  ],
+  "schedule": [
+    "* 7 * * *"
+  ],
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "dev.dependencies"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true
+    }
+  ],
+  "ignoreDeps": [
+    "python",
+    "postgres",
+    "nginx"
+  ]
+}
