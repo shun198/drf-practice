@@ -1,7 +1,7 @@
 name: Run Pytest without Model
 on:
-  push:
-    branches: [develop]
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
 
 env:
   WORKING_DIRECTORY: application
@@ -36,17 +36,22 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
+      # https://github.com/actions/checkout#fetch-all-history-for-all-tags-and-branches
       - name: Chekcout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idif
       - name: Check for model changes
+        # https://www.ibm.com/docs/ja/aix/7.1?topic=g-grep-command#grep__row-d3e144113
         id: check_changes
         run: |
-          BASE_BRANCH=${{ github.base_ref }}
-          git fetch origin $BASE_BRANCH
           MODEL_CHANGED=false
-          if git diff --name-only origin/$BASE_BRANCH ${{ github.sha }} | grep -q "^${{ env.WORKING_DIRECTORY }}/models/"; then
+          if git diff --name-only origin/${{ github.base_ref }} | grep -c ${{ env.WORKING_DIRECTORY }}/application/models/ > 0; then
+            echo $MODEL_CHANGED
             MODEL_CHANGED=true
           fi
+          echo $MODEL_CHANGED
           echo "MODEL_CHANGED=$MODEL_CHANGED" >> $GITHUB_ENV
       - name: Grant privileges to user
         run: mysql --protocol=tcp -h 127.0.0.1 -P 3306 -u root -p$MYSQL_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'%'; FLUSH PRIVILEGES;"
@@ -55,15 +60,15 @@ jobs:
         with:
           working-directory: ${{ env.WORKING_DIRECTORY }}
       - name: Run migration
-        run: |
-          poetry run python manage.py makemigrations
-          poetry run python manage.py migrate
+        run: poetry run python manage.py migrate
       - name: Run Pytest Without Model
-        if: env.MODEL_CHANGED == 'true'
+        # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idif
+        if: env.MODEL_CHANGED == 'false'
         run: |
           set -o pipefail
           poetry run pytest ${{ env.WORKING_DIRECTORY }}/tests/serializers ${{ env.WORKING_DIRECTORY }}/tests/views --junitxml=pytest.xml -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code | tee pytest-coverage.txt
       - name: Run Pytest
+        if: env.MODEL_CHANGED == 'true'
         run: |
           set -o pipefail
           poetry run pytest --junitxml=pytest.xml -x -n auto --cov --no-cov-on-fail --suppress-no-test-exit-code | tee pytest-coverage.txt
