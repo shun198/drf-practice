@@ -29,7 +29,7 @@ runs:
         python-version: '3.11'
         cache: 'poetry'
     - name: Install Packages
-      run: poetry install
+      run: poetry install --no-root
       shell: bash
       working-directory: ${{ inputs.working-directory }}
 
