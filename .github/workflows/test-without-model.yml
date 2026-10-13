@@ -16,7 +16,7 @@ env:
 jobs:
   Setup:
     name: Run Test Code
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: application
